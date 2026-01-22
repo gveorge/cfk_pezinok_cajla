@@ -23,9 +23,9 @@ const categories = [
 const trainersData: Record<Category, Array<{ name: string; role: string; image: string; description: string }>> = {
   A: [
     {
-      name: "Peter Novák",
+      name: "Milan Dugovič",
       role: "Hlavný tréner",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=peter",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=milan",
       description: "UEFA Pro licencia, 15 rokov skúseností"
     },
     {
