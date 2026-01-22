@@ -1,9 +1,9 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { trpc } from "@/lib/trpc";
-import { ArrowLeft, TrendingUp, Calendar as CalendarIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
 
@@ -111,19 +111,36 @@ export default function TrainerAttendance() {
           </div>
         </div>
 
-        {/* Attendance Stats */}
+        {/* Compact Attendance Table */}
         {playersLoading ? (
           <div className="text-center py-12 text-muted-foreground">Načítavam dochádzku...</div>
         ) : players.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {players.map((player: any) => (
-              <PlayerAttendanceCard
-                key={player.id}
-                player={player}
-                dateRange={getDateRange()}
-              />
-            ))}
-          </div>
+          <Card>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-muted/50 border-b">
+                    <tr>
+                      <th className="text-left p-3 font-semibold text-sm">Hráč</th>
+                      <th className="text-left p-3 font-semibold text-sm">Kategória</th>
+                      <th className="text-center p-3 font-semibold text-sm">Tréningy</th>
+                      <th className="text-center p-3 font-semibold text-sm">Prítomnosť</th>
+                      <th className="text-center p-3 font-semibold text-sm">Dochádzka</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {players.map((player: any) => (
+                      <PlayerAttendanceRow
+                        key={player.id}
+                        player={player}
+                        dateRange={getDateRange()}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
         ) : (
           <Card>
             <CardContent className="py-12 text-center">
@@ -140,60 +157,52 @@ export default function TrainerAttendance() {
   );
 }
 
-function PlayerAttendanceCard({ player, dateRange }: { player: any; dateRange: any }) {
+function PlayerAttendanceRow({ player, dateRange }: { player: any; dateRange: any }) {
   const { data: stats } = trpc.attendance.getStats.useQuery({
     playerId: player.id,
     ...dateRange,
   });
 
   const getPercentageColor = (percentage: number) => {
-    if (percentage >= 80) return "text-green-600";
-    if (percentage >= 60) return "text-yellow-600";
-    return "text-red-600";
+    if (percentage >= 80) return "text-green-600 bg-green-50";
+    if (percentage >= 60) return "text-yellow-600 bg-yellow-50";
+    return "text-red-600 bg-red-50";
+  };
+
+  const categoryLabels: Record<string, string> = {
+    "U8-U9": "U8-U9",
+    "U10-U11": "U10-U11",
+    "U13": "U13",
+    "U15": "U15",
+    "A": "A tím",
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg">{player.name}</CardTitle>
-        <CardDescription>
-          {categories.find(c => c.value === player.category)?.label}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <CalendarIcon className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">Celkovo tréningov</span>
-            </div>
-            <span className="font-semibold">{stats?.total || 0}</span>
-          </div>
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">Zúčastnených</span>
-            </div>
-            <span className="font-semibold">{stats?.present || 0}</span>
-          </div>
-
-          <div className="pt-4 border-t">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium">Dochádzka</span>
-              <span className={`text-2xl font-bold ${getPercentageColor(stats?.percentage || 0)}`}>
-                {stats?.percentage || 0}%
-              </span>
-            </div>
-            <div className="w-full bg-muted rounded-full h-2">
-              <div
-                className="bg-primary h-2 rounded-full transition-all"
-                style={{ width: `${stats?.percentage || 0}%` }}
-              />
-            </div>
-          </div>
+    <tr className="hover:bg-muted/30 transition-colors">
+      <td className="p-3">
+        <div className="font-medium text-sm">{player.name}</div>
+        {player.position && (
+          <div className="text-xs text-muted-foreground">{player.position}</div>
+        )}
+      </td>
+      <td className="p-3">
+        <span className="text-sm text-muted-foreground">
+          {categoryLabels[player.category] || player.category}
+        </span>
+      </td>
+      <td className="p-3 text-center">
+        <span className="text-sm font-medium">{stats?.total || 0}</span>
+      </td>
+      <td className="p-3 text-center">
+        <span className="text-sm font-medium">{stats?.present || 0}</span>
+      </td>
+      <td className="p-3 text-center">
+        <div className="flex items-center justify-center gap-2">
+          <span className={`text-sm font-bold px-3 py-1 rounded-full ${getPercentageColor(stats?.percentage || 0)}`}>
+            {stats?.percentage || 0}%
+          </span>
         </div>
-      </CardContent>
-    </Card>
+      </td>
+    </tr>
   );
 }

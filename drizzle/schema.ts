@@ -32,10 +32,7 @@ export const players = mysqlTable("players", {
     "U15",
     "A"
   ]).notNull(),
-  parentName: varchar("parentName", { length: 255 }),
-  parentPhone: varchar("parentPhone", { length: 50 }),
-  parentEmail: varchar("parentEmail", { length: 320 }),
-  notes: text("notes"),
+  position: varchar("position", { length: 100 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

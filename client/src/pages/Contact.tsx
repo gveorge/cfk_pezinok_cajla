@@ -30,7 +30,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  CFK Pezinok Čajla<br />
+                  CFK Pezinok Cajla<br />
                   Pezinok<br />
                   Slovensko
                 </p>

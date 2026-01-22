@@ -28,10 +28,7 @@ export const appRouter = router({
         name: z.string().min(1),
         dateOfBirth: z.string().optional(),
         category: categoryEnum,
-        parentName: z.string().optional(),
-        parentPhone: z.string().optional(),
-        parentEmail: z.string().email().optional(),
-        notes: z.string().optional(),
+        position: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
         await db.createPlayer({
@@ -64,10 +61,7 @@ export const appRouter = router({
         name: z.string().min(1).optional(),
         dateOfBirth: z.string().optional(),
         category: categoryEnum.optional(),
-        parentName: z.string().optional(),
-        parentPhone: z.string().optional(),
-        parentEmail: z.string().email().optional(),
-        notes: z.string().optional(),
+        position: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
         const { id, ...data } = input;

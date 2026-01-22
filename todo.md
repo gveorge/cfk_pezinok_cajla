@@ -41,3 +41,10 @@
 - [x] Write vitest tests for training and attendance
 - [x] Test authentication flow
 - [x] Test all CRUD operations
+
+## User Requested Changes
+- [x] Replace logo with correct club logo (cflogo.webp)
+- [x] Fix all instances of "Čajla" to "Cajla" throughout the website
+- [x] Simplify player form - only name, date of birth, category, and position
+- [x] Make attendance overview more compact for 18+ players
+- [x] Make homepage more colorful and visually interesting

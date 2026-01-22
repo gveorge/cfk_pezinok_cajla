@@ -15,6 +15,13 @@
       "when": 1769103544256,
       "tag": "0001_sharp_proteus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1769104803241,
+      "tag": "0002_gigantic_charles_xavier",
+      "breakpoints": true
     }
   ]
 }

@@ -2,61 +2,77 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
-import { Users, Trophy, Calendar, Image as ImageIcon, Phone, LogOut } from "lucide-react";
-import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
+import {
+  Users,
+  Target,
+  Zap,
+  Trophy,
+  Calendar,
+  MapPin,
+  Phone,
+  Mail,
+  LogOut,
+  User,
+} from "lucide-react";
+import { Link } from "wouter";
 
-const teamCategories = [
+const categories = [
   {
     id: "U8-U9",
     title: "Mladšia prípravka",
     subtitle: "U8-U9",
-    description: "Nájmlad­ší hráči klubu začínajú svoju futbalovú cestu",
-    icon: "⚽",
+    icon: Users,
+    color: "from-blue-500 to-blue-600",
+    bgColor: "bg-blue-50",
   },
   {
     id: "U10-U11",
     title: "Staršia prípravka",
     subtitle: "U10-U11",
-    description: "Rozvíjanie základných futbalových zručností",
-    icon: "🎯",
+    icon: Target,
+    color: "from-green-500 to-green-600",
+    bgColor: "bg-green-50",
   },
   {
     id: "U13",
     title: "Mladší žiaci",
     subtitle: "U13",
-    description: "Prechod k organizovanému tímovému futbalu",
-    icon: "⚡",
+    icon: Zap,
+    color: "from-yellow-500 to-yellow-600",
+    bgColor: "bg-yellow-50",
   },
   {
     id: "U15",
     title: "Starší žiaci",
     subtitle: "U15",
-    description: "Príprava na seniorský futbal",
-    icon: "🔥",
+    icon: Trophy,
+    color: "from-orange-500 to-orange-600",
+    bgColor: "bg-orange-50",
   },
   {
     id: "A",
     title: "A mužstvo",
     subtitle: "Seniori",
-    description: "Reprezentácia klubu v seniorských súťažiach",
-    icon: "🏆",
+    icon: Trophy,
+    color: "from-red-500 to-red-600",
+    bgColor: "bg-red-50",
   },
 ];
 
 export default function Home() {
   const { user, loading, isAuthenticated, logout } = useAuth();
-  const { data: newsItems = [], isLoading: newsLoading } = trpc.news.list.useQuery({ limit: 3 });
+  const { data: newsItems = [] } = trpc.news.list.useQuery();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      {/* Header/Navigation */}
-      <header className="border-b border-border bg-card">
-        <div className="container py-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-gray-50">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-border bg-white/80 backdrop-blur-lg">
+        <div className="container py-3">
           <div className="flex items-center justify-between">
             <Link href="/">
               <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <img src="/club-logo.jpg" alt="CFK Pezinok Čajla" className="h-12 w-12 object-contain rounded" />
+                <img src="/club-logo.webp" alt="CFK Pezinok Cajla" className="h-16 w-16 object-contain" />
                 <div>
                   <h1 className="text-xl font-bold text-foreground">CFK Pezinok Cajla</h1>
                   <p className="text-sm text-muted-foreground">Futbalový klub</p>
@@ -74,28 +90,27 @@ export default function Home() {
               <Link href="/contact">
                 <a className="text-sm font-medium hover:text-primary transition-colors">Kontakt</a>
               </Link>
-              {isAuthenticated && (
-                <Link href="/trainer">
-                  <a className="text-sm font-medium hover:text-primary transition-colors">Trénerská sekcia</a>
-                </Link>
-              )}
+              <Link href="/trainer">
+                <a className="text-sm font-medium hover:text-primary transition-colors">Trénerská sekcia</a>
+              </Link>
             </nav>
 
             <div className="flex items-center gap-2">
               {loading ? (
-                <Button variant="outline" size="sm" disabled>
-                  Načítavam...
-                </Button>
+                <div className="text-sm text-muted-foreground">Načítavam...</div>
               ) : isAuthenticated ? (
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground hidden sm:inline">{user?.name}</span>
+                  <span className="text-sm text-muted-foreground hidden sm:inline flex items-center gap-1">
+                    <User className="h-4 w-4" />
+                    {user?.name}
+                  </span>
                   <Button variant="outline" size="sm" onClick={() => logout()}>
                     <LogOut className="h-4 w-4 mr-2" />
                     Odhlásiť
                   </Button>
                 </div>
               ) : (
-                <Button asChild size="sm">
+                <Button size="sm" asChild>
                   <a href={getLoginUrl()}>Prihlásiť</a>
                 </Button>
               )}
@@ -104,197 +119,205 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/10 via-background to-primary/5 py-16 md:py-24">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-              Vitajte v CFK Pezinok Čajla
+      <main>
+        {/* Hero Section */}
+        <section className="relative py-20 px-4 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-white to-green-100" />
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-20 left-20 w-64 h-64 bg-green-500 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-20 right-20 w-80 h-80 bg-primary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          </div>
+          <div className="container relative z-10 text-center">
+            <h2 className="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-gray-900 via-green-700 to-gray-900 bg-clip-text text-transparent">
+              Vitajte v CFK Pezinok Cajla
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-10 font-medium leading-relaxed">
               Futbalový klub s tradíciou a perspektívou. Rozvíjame mladé talenty a podporujeme lásku k futbalu.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" asChild>
+              <Button size="lg" className="text-lg px-8" asChild>
                 <Link href="/contact">
                   <a>Kontaktujte nás</a>
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="text-lg px-8" asChild>
                 <Link href="/gallery">
                   <a>
-                    <ImageIcon className="h-5 w-5 mr-2" />
+                    <Calendar className="mr-2 h-5 w-5" />
                     Pozrite galériu
                   </a>
                 </Link>
               </Button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Team Categories */}
-      <section className="py-16 bg-background">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-3 text-foreground">Naše kategórie</h3>
-            <p className="text-muted-foreground">Futbal pre všetky vekové skupiny</p>
+        {/* Categories Section */}
+        <section className="py-16 px-4 bg-white">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold mb-4 text-foreground">Naše kategórie</h3>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Futbal pre všetky vekové skupiny
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+              {categories.map((category) => {
+                const Icon = category.icon;
+                return (
+                  <Card
+                    key={category.id}
+                    className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
+                  >
+                    <CardHeader className="text-center pb-4">
+                      <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                        <Icon className="h-10 w-10 text-white" />
+                      </div>
+                      <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
+                      <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                );
+              })}
+            </div>
           </div>
+        </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {teamCategories.map((category) => (
-              <Card key={category.id} className="hover:shadow-lg transition-shadow border-2 hover:border-primary/50">
+        {/* News Section */}
+        {newsItems.length > 0 && (
+          <section className="py-16 px-4 bg-gradient-to-br from-green-50 to-blue-50">
+            <div className="container">
+              <div className="text-center mb-12">
+                <h3 className="text-4xl font-bold mb-4 text-foreground">Aktuality</h3>
+                <p className="text-lg text-muted-foreground">Najnovšie správy z klubu</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {newsItems.slice(0, 3).map((item: any) => (
+                  <Card key={item.id} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+                    {item.imageUrl && (
+                      <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+                        <img
+                          src={item.imageUrl}
+                          alt={item.title}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+                    <CardHeader>
+                      <CardTitle className="text-lg line-clamp-2">{item.title}</CardTitle>
+                      <CardDescription>
+                        {new Date(item.createdAt).toLocaleDateString("sk-SK")}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground line-clamp-3">{item.content}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Quick Info Section */}
+        <section className="py-16 px-4 bg-white">
+          <div className="container">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <Card className="text-center hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
                 <CardHeader>
-                  <div className="text-4xl mb-2">{category.icon}</div>
-                  <CardTitle className="text-xl">{category.title}</CardTitle>
-                  <CardDescription className="text-base font-semibold text-primary">
-                    {category.subtitle}
-                  </CardDescription>
+                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                    <MapPin className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-xl">Adresa</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{category.description}</p>
+                  <p className="text-muted-foreground">
+                    Pezinok<br />
+                    Slovensko
+                  </p>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* News Section */}
-      <section className="py-16 bg-muted/30">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-3 text-foreground">Aktuality</h3>
-            <p className="text-muted-foreground">Najnovšie správy z klubu</p>
-          </div>
+              <Card className="text-center hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+                <CardHeader>
+                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
+                    <Phone className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-xl">Telefón</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    +421 XXX XXX XXX
+                  </p>
+                </CardContent>
+              </Card>
 
-          {newsLoading ? (
-            <div className="text-center text-muted-foreground">Načítavam aktuality...</div>
-          ) : newsItems.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {newsItems.map((item: any) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow">
-                  {item.imageUrl && (
-                    <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                      <img
-                        src={item.imageUrl}
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )}
-                  <CardHeader>
-                    <CardTitle className="text-lg line-clamp-2">{item.title}</CardTitle>
-                    <CardDescription>
-                      {new Date(item.createdAt).toLocaleDateString("sk-SK")}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground line-clamp-3">{item.content}</p>
-                  </CardContent>
-                </Card>
-              ))}
+              <Card className="text-center hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+                <CardHeader>
+                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
+                    <Mail className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-xl">Email</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    info@cfkpezinok.sk
+                  </p>
+                </CardContent>
+              </Card>
             </div>
-          ) : (
-            <div className="text-center">
-              <p className="text-muted-foreground mb-4">Zatiaľ nie sú žiadne aktuality.</p>
-              {isAuthenticated && (
-                <Button asChild variant="outline">
-                  <Link href="/trainer/news">
-                    <a>Pridať aktualitu</a>
-                  </Link>
-                </Button>
-              )}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Quick Links */}
-      <section className="py-16 bg-background">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="mx-auto mb-2">
-                  <Users className="h-12 w-12 text-primary" />
-                </div>
-                <CardTitle>Trénerský tím</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Skúsení tréneri s licenciami UEFA</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="mx-auto mb-2">
-                  <Trophy className="h-12 w-12 text-primary" />
-                </div>
-                <CardTitle>Úspechy</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Víťazstvá v regionálnych súťažiach</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="mx-auto mb-2">
-                  <Calendar className="h-12 w-12 text-primary" />
-                </div>
-                <CardTitle>Tréningy</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Pravidelné tréningy počas celého roka</p>
-              </CardContent>
-            </Card>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card mt-auto">
-        <div className="container py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <footer className="bg-gradient-to-r from-gray-900 via-green-900 to-gray-900 text-white py-12">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h4 className="font-semibold mb-3 text-foreground">CFK Pezinok Čajla</h4>
-              <p className="text-sm text-muted-foreground">
+              <h4 className="font-semibold mb-3 text-lg">CFK Pezinok Cajla</h4>
+              <p className="text-gray-300 text-sm">
                 Futbalový klub s tradíciou a perspektívou
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-3 text-foreground">Rýchle odkazy</h4>
+              <h4 className="font-semibold mb-3 text-lg">Rýchle odkazy</h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link href="/">
-                    <a className="text-muted-foreground hover:text-primary transition-colors">Domov</a>
+                    <a className="text-gray-300 hover:text-white transition-colors">Domov</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/gallery">
-                    <a className="text-muted-foreground hover:text-primary transition-colors">Galéria</a>
+                    <a className="text-gray-300 hover:text-white transition-colors">Galéria</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/contact">
-                    <a className="text-muted-foreground hover:text-primary transition-colors">Kontakt</a>
+                    <a className="text-gray-300 hover:text-white transition-colors">Kontakt</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/trainer">
+                    <a className="text-gray-300 hover:text-white transition-colors">Trénerská sekcia</a>
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-3 text-foreground">Kontakt</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <Phone className="h-4 w-4" />
-                  <span>+421 XXX XXX XXX</span>
-                </li>
+              <h4 className="font-semibold mb-3 text-lg">Kontakt</h4>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li>Pezinok, Slovensko</li>
+                <li>+421 XXX XXX XXX</li>
+                <li>info@cfkpezinok.sk</li>
               </ul>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} CFK Pezinok Čajla. Všetky práva vyhradené.</p>
+          <div className="border-t border-gray-700 pt-6 text-center">
+            <p className="text-gray-400 text-sm">&copy; {new Date().getFullYear()} CFK Pezinok Cajla. Všetky práva vyhradené.</p>
           </div>
         </div>
       </footer>

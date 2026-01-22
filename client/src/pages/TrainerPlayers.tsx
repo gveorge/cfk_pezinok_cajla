@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
 import { Plus, Edit, Trash2, ArrowLeft } from "lucide-react";
 import { useState } from "react";
@@ -18,6 +17,13 @@ const categories = [
   { value: "U13", label: "Mladší žiaci (U13)" },
   { value: "U15", label: "Starší žiaci (U15)" },
   { value: "A", label: "A mužstvo" },
+];
+
+const positions = [
+  { value: "Brankár", label: "Brankár" },
+  { value: "Obranca", label: "Obranca" },
+  { value: "Stredopoliar", label: "Stredopoliar" },
+  { value: "Útočník", label: "Útočník" },
 ];
 
 export default function TrainerPlayers() {
@@ -71,10 +77,7 @@ export default function TrainerPlayers() {
       name: formData.get("name") as string,
       dateOfBirth: formData.get("dateOfBirth") as string || undefined,
       category: formData.get("category") as any,
-      parentName: formData.get("parentName") as string || undefined,
-      parentPhone: formData.get("parentPhone") as string || undefined,
-      parentEmail: formData.get("parentEmail") as string || undefined,
-      notes: formData.get("notes") as string || undefined,
+      position: formData.get("position") as string || undefined,
     };
 
     if (editingPlayer) {
@@ -112,7 +115,7 @@ export default function TrainerPlayers() {
                 Pridať hráča
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogContent>
               <form onSubmit={handleSubmit}>
                 <DialogHeader>
                   <DialogTitle>{editingPlayer ? "Upraviť hráča" : "Pridať nového hráča"}</DialogTitle>
@@ -155,39 +158,19 @@ export default function TrainerPlayers() {
                     </Select>
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="parentName">Meno rodiča</Label>
-                    <Input
-                      id="parentName"
-                      name="parentName"
-                      defaultValue={editingPlayer?.parentName || ''}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="parentPhone">Telefón rodiča</Label>
-                    <Input
-                      id="parentPhone"
-                      name="parentPhone"
-                      type="tel"
-                      defaultValue={editingPlayer?.parentPhone || ''}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="parentEmail">Email rodiča</Label>
-                    <Input
-                      id="parentEmail"
-                      name="parentEmail"
-                      type="email"
-                      defaultValue={editingPlayer?.parentEmail || ''}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="notes">Poznámky</Label>
-                    <Textarea
-                      id="notes"
-                      name="notes"
-                      defaultValue={editingPlayer?.notes || ''}
-                      rows={3}
-                    />
+                    <Label htmlFor="position">Pozícia</Label>
+                    <Select name="position" defaultValue={editingPlayer?.position || undefined}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Vyberte pozíciu (voliteľné)" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {positions.map((pos) => (
+                          <SelectItem key={pos.value} value={pos.value}>
+                            {pos.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
                 <DialogFooter>
@@ -269,11 +252,8 @@ export default function TrainerPlayers() {
                         Narodený: {new Date(player.dateOfBirth).toLocaleDateString("sk-SK")}
                       </p>
                     )}
-                    {player.parentName && (
-                      <p className="text-muted-foreground">Rodič: {player.parentName}</p>
-                    )}
-                    {player.parentPhone && (
-                      <p className="text-muted-foreground">Tel: {player.parentPhone}</p>
+                    {player.position && (
+                      <p className="text-muted-foreground">Pozícia: {player.position}</p>
                     )}
                   </div>
                 </CardContent>

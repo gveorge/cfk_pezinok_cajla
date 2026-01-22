@@ -76,10 +76,10 @@ export default function TrainerDashboard() {
           <div className="flex items-center justify-between">
             <Link href="/trainer">
               <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <img src="/club-logo.jpg" alt="CFK Pezinok Čajla" className="h-12 w-12 object-contain rounded" />
+                <img src="/club-logo.webp" alt="CFK Pezinok Cajla" className="h-16 w-16 object-contain" />
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Trénerská sekcia</h1>
-                  <p className="text-sm text-muted-foreground">CFK Pezinok Čajla</p>
+                  <p className="text-sm text-muted-foreground">CFK Pezinok Cajla</p>
                 </div>
               </a>
             </Link>
