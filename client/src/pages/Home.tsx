@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
-import { LogOut, User, Users } from "lucide-react";
+import { LogOut, User, Users, Menu, X } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
@@ -123,6 +123,7 @@ const bfzLinks: Record<Category, string> = {
 export default function Home() {
   const { user, loading, isAuthenticated, logout } = useAuth();
   const [activeCategory, setActiveCategory] = useState<Category>("A");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const newsQuery = trpc.news.list.useQuery({ limit: 3 });
   const news = newsQuery.data || [];
@@ -163,7 +164,16 @@ export default function Home() {
               </Link>
             </nav>
 
-            <div className="flex items-center gap-2">
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+
+            <div className="hidden md:flex items-center gap-2">
               {loading ? (
                 <div className="text-sm text-muted-foreground">Načítavam...</div>
               ) : isAuthenticated ? (
@@ -184,6 +194,54 @@ export default function Home() {
               )}
             </div>
           </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-border pt-4">
+              <nav className="flex flex-col gap-3">
+                <Link href="/">
+                  <a 
+                    className="text-sm font-medium text-primary py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Domov
+                  </a>
+                </Link>
+                <Link href="/gallery">
+                  <a 
+                    className="text-sm font-medium hover:text-primary py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Galéria
+                  </a>
+                </Link>
+                <Link href="/contact">
+                  <a 
+                    className="text-sm font-medium hover:text-primary py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Kontakt
+                  </a>
+                </Link>
+                <Link href="/tax-donation">
+                  <a 
+                    className="text-sm font-medium hover:text-primary py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    2 % z dane
+                  </a>
+                </Link>
+                <Link href="/trainer">
+                  <a 
+                    className="text-sm font-medium hover:text-primary py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Trénerská sekcia
+                  </a>
+                </Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 

@@ -96,3 +96,6 @@
 
 ## Design Adjustments
 - [x] Change "Kontaktujte nás" and "Galéria" buttons to white background for better contrast
+
+## Mobile Responsiveness
+- [x] Add hamburger menu for mobile devices to show navigation links
