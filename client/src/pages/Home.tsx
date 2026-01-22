@@ -19,33 +19,49 @@ import { Link } from "wouter";
 
 const categories = [
   {
-    id: "U8-U9",
-    title: "Mladšia prípravka",
-    subtitle: "U8-U9",
+    id: "U8",
+    title: "U8",
+    subtitle: "Mladšia prípravka",
+    icon: Users,
+    color: "from-blue-400 to-blue-500",
+    bgColor: "bg-blue-50",
+  },
+  {
+    id: "U9",
+    title: "U9",
+    subtitle: "Mladšia prípravka",
     icon: Users,
     color: "from-blue-500 to-blue-600",
     bgColor: "bg-blue-50",
   },
   {
-    id: "U10-U11",
-    title: "Staršia prípravka",
-    subtitle: "U10-U11",
+    id: "U10",
+    title: "U10",
+    subtitle: "Staršia prípravka",
+    icon: Target,
+    color: "from-green-400 to-green-500",
+    bgColor: "bg-green-50",
+  },
+  {
+    id: "U11",
+    title: "U11",
+    subtitle: "Staršia prípravka",
     icon: Target,
     color: "from-green-500 to-green-600",
     bgColor: "bg-green-50",
   },
   {
     id: "U13",
-    title: "Mladší žiaci",
-    subtitle: "U13",
+    title: "U13",
+    subtitle: "Mladší žiaci",
     icon: Zap,
     color: "from-yellow-500 to-yellow-600",
     bgColor: "bg-yellow-50",
   },
   {
     id: "U15",
-    title: "Starší žiaci",
-    subtitle: "U15",
+    title: "U15",
+    subtitle: "Starší žiaci",
     icon: Trophy,
     color: "from-orange-500 to-orange-600",
     bgColor: "bg-orange-50",
@@ -128,10 +144,10 @@ export default function Home() {
             <div className="absolute bottom-20 right-20 w-80 h-80 bg-primary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
           </div>
           <div className="container relative z-10 text-center">
-            <h2 className="text-5xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-gray-900 via-green-700 to-gray-900 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-6xl font-extrabold mb-8 bg-gradient-to-r from-gray-900 via-green-700 to-gray-900 bg-clip-text text-transparent leading-tight">
               Vitajte v CFK Pezinok Cajla
             </h2>
-            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-10 font-medium leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-10 font-medium leading-relaxed">
               Futbalový klub s tradíciou a perspektívou. Rozvíjame mladé talenty a podporujeme lásku k futbalu.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
@@ -162,7 +178,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-6">
               {categories.map((category) => {
                 const Icon = category.icon;
                 const categoryPath = `/category/${category.id.toLowerCase()}`;

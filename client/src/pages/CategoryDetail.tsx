@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
-import { ArrowLeft, Clock, MapPin, User, LogOut, Mail, Phone } from "lucide-react";
+import { ArrowLeft, Clock, MapPin, User, LogOut, Mail, Phone, ExternalLink } from "lucide-react";
 import { Link, useRoute } from "wouter";
 
 const categoryData: Record<string, {
@@ -10,35 +10,80 @@ const categoryData: Record<string, {
   subtitle: string;
   color: string;
   bgColor: string;
+  bfzLink: string;
   trainings: { day: string; time: string; location: string }[];
   trainers: { name: string; role: string; description: string; image: string; email: string; phone: string }[];
 }> = {
-  "u8-u9": {
-    title: "Mladšia prípravka",
-    subtitle: "U8-U9",
-    color: "from-blue-500 to-blue-600",
+  "u8": {
+    title: "U8",
+    subtitle: "Mladšia prípravka",
+    color: "from-blue-400 to-blue-500",
     bgColor: "bg-blue-50",
+    bfzLink: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u8-m-a/vysledky/",
     trainings: [
       { day: "Pondelok", time: "16:00 - 17:00", location: "Hlavné ihrisko" },
       { day: "Streda", time: "16:00 - 17:00", location: "Hlavné ihrisko" },
-      { day: "Piatok", time: "16:00 - 17:00", location: "Hlavné ihrisko" },
     ],
     trainers: [
       {
         name: "Ján Novák",
         role: "Hlavný tréner",
-        description: "Skúsený tréner s 10-ročnou praxou v práci s deťmi. Špecializuje sa na rozvoj základných futbalových zručností a herného myslenia.",
+        description: "Skúsený tréner s 10-ročnou praxou v práci s deťmi. Špecializuje sa na rozvoj základných futbalových zručností.",
         image: "https://ui-avatars.com/api/?name=Jan+Novak&size=200&background=3b82f6&color=fff",
         email: "jan.novak@cfkpezinok.sk",
         phone: "+421 XXX XXX XXX"
       },
     ],
   },
-  "u10-u11": {
-    title: "Staršia prípravka",
-    subtitle: "U10-U11",
+  "u9": {
+    title: "U9",
+    subtitle: "Mladšia prípravka",
+    color: "from-blue-500 to-blue-600",
+    bgColor: "bg-blue-50",
+    bfzLink: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u9-m-a/vysledky/",
+    trainings: [
+      { day: "Utorok", time: "16:00 - 17:00", location: "Hlavné ihrisko" },
+      { day: "Štvrtok", time: "16:00 - 17:00", location: "Hlavné ihrisko" },
+    ],
+    trainers: [
+      {
+        name: "Ján Novák",
+        role: "Hlavný tréner",
+        description: "Skúsený tréner s 10-ročnou praxou v práci s deťmi. Špecializuje sa na rozvoj základných futbalových zručností.",
+        image: "https://ui-avatars.com/api/?name=Jan+Novak&size=200&background=3b82f6&color=fff",
+        email: "jan.novak@cfkpezinok.sk",
+        phone: "+421 XXX XXX XXX"
+      },
+    ],
+  },
+  "u10": {
+    title: "U10",
+    subtitle: "Staršia prípravka",
+    color: "from-green-400 to-green-500",
+    bgColor: "bg-green-50",
+    bfzLink: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u10-m-a/vysledky/",
+    trainings: [
+      { day: "Pondelok", time: "16:30 - 18:00", location: "Hlavné ihrisko" },
+      { day: "Streda", time: "16:30 - 18:00", location: "Hlavné ihrisko" },
+      { day: "Piatok", time: "16:30 - 18:00", location: "Hlavné ihrisko" },
+    ],
+    trainers: [
+      {
+        name: "Peter Kováč",
+        role: "Hlavný tréner",
+        description: "Bývalý profesionálny hráč s licenciou UEFA B. Zameriava sa na techniku, taktiku a tímovú spoluprácu.",
+        image: "https://ui-avatars.com/api/?name=Peter+Kovac&size=200&background=22c55e&color=fff",
+        email: "peter.kovac@cfkpezinok.sk",
+        phone: "+421 XXX XXX XXX"
+      },
+    ],
+  },
+  "u11": {
+    title: "U11",
+    subtitle: "Staršia prípravka",
     color: "from-green-500 to-green-600",
     bgColor: "bg-green-50",
+    bfzLink: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u11-m-a/vysledky/",
     trainings: [
       { day: "Utorok", time: "16:30 - 18:00", location: "Hlavné ihrisko" },
       { day: "Štvrtok", time: "16:30 - 18:00", location: "Hlavné ihrisko" },
@@ -56,10 +101,11 @@ const categoryData: Record<string, {
     ],
   },
   "u13": {
-    title: "Mladší žiaci",
-    subtitle: "U13",
+    title: "U13",
+    subtitle: "Mladší žiaci",
     color: "from-yellow-500 to-yellow-600",
     bgColor: "bg-yellow-50",
+    bfzLink: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u13-m-a/vysledky/",
     trainings: [
       { day: "Pondelok", time: "17:00 - 18:30", location: "Hlavné ihrisko" },
       { day: "Streda", time: "17:00 - 18:30", location: "Hlavné ihrisko" },
@@ -85,10 +131,11 @@ const categoryData: Record<string, {
     ],
   },
   "u15": {
-    title: "Starší žiaci",
-    subtitle: "U15",
+    title: "U15",
+    subtitle: "Starší žiaci",
     color: "from-orange-500 to-orange-600",
     bgColor: "bg-orange-50",
+    bfzLink: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u15-m-a/vysledky/",
     trainings: [
       { day: "Utorok", time: "17:30 - 19:00", location: "Hlavné ihrisko" },
       { day: "Štvrtok", time: "17:30 - 19:00", location: "Hlavné ihrisko" },
@@ -110,6 +157,7 @@ const categoryData: Record<string, {
     subtitle: "Seniori",
     color: "from-red-500 to-red-600",
     bgColor: "bg-red-50",
+    bfzLink: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/a-m-a/vysledky/",
     trainings: [
       { day: "Pondelok", time: "18:30 - 20:00", location: "Hlavné ihrisko" },
       { day: "Streda", time: "18:30 - 20:00", location: "Hlavné ihrisko" },
@@ -215,12 +263,24 @@ export default function CategoryDetail() {
           </Link>
 
           {/* Category Header */}
-          <div className={`${category.bgColor} rounded-2xl p-8 mb-12 border-2`}>
-            <div className={`inline-block px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-bold text-lg mb-4`}>
-              {category.subtitle}
+          <div className={`${category.bgColor} rounded-2xl p-8 mb-8 border-2`}>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div>
+                <div className={`inline-block px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-white font-bold text-lg mb-4`}>
+                  {category.title}
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">{category.subtitle}</h1>
+                <p className="text-lg text-muted-foreground">Informácie o kategórii, tréningoch a tréneroch</p>
+              </div>
+              <div>
+                <Button asChild variant="outline" size="lg" className="gap-2">
+                  <a href={category.bfzLink} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-5 w-5" />
+                    Výsledky na BFZ
+                  </a>
+                </Button>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">{category.title}</h1>
-            <p className="text-lg text-muted-foreground">Informácie o kategórii, tréningoch a tréneroch</p>
           </div>
 
           {/* Training Schedule */}

@@ -21,6 +21,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/category/:id"} component={CategoryDetail} />
       <Route path={"/404"} component={NotFound} />
+      <Route path={"/contact"} component={Contact} />
       <Route path={"/gallery"} component={Gallery} />
       <Route path={"/trainer"} component={TrainerDashboard} />
       <Route path={"/trainer/players"} component={TrainerPlayers} />

@@ -56,3 +56,9 @@
 - [x] Make category tiles interactive - clicking opens detail page
 - [x] Create category detail pages with training times (placeholder)
 - [x] Add trainers section to category pages with photos and descriptions (placeholder)
+
+## Bug Fixes and New Requests
+- [x] Fix non-working contact link in menu
+- [x] Fix text overlap on homepage - "Vitajte" text overlapping with content below
+- [x] Split categories - each should have its own tile (not grouped as prípravky/žiaci)
+- [x] Add BFZ link for each category on detail pages
