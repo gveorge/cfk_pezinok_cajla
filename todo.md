@@ -83,3 +83,8 @@
 - [x] Categories switch on same page without navigation (tabs/accordion style)
 - [x] Add player cards with photos for A mužstvo category
 - [x] Keep only trainers for other categories (no player cards)
+
+## UI/UX Improvements
+- [x] Make training times larger and more visible
+- [x] Fix dark green color scheme - make it lighter and more readable
+- [x] Improve overall color contrast and readability

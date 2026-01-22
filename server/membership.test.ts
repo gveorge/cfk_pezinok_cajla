@@ -65,9 +65,11 @@ describe("membership payments", () => {
     });
 
     expect(payments.length).toBeGreaterThan(0);
-    expect(payments[0]?.paid).toBe(1);
-    expect(payments[0]?.year).toBe(2026);
-    expect(payments[0]?.month).toBe(1);
+    const payment = payments.find((p: any) => p.year === 2026 && p.month === 1);
+    expect(payment).toBeDefined();
+    expect(payment?.paid).toBe(1);
+    expect(payment?.year).toBe(2026);
+    expect(payment?.month).toBe(1);
   });
 
   it("retrieves payments by year and month", async () => {

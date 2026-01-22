@@ -212,9 +212,9 @@ export default function Home() {
       </section>
 
       {/* Category Tabs Section */}
-      <section className="bg-gradient-to-r from-gray-900 via-green-900 to-gray-900 text-white py-8">
+      <section className="bg-white py-12">
         <div className="container">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8">Naše kategórie</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-foreground">Naše kategórie</h2>
           
           {/* Horizontal Category Tabs */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -224,8 +224,8 @@ export default function Home() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
                   activeCategory === cat.id
-                    ? "bg-white text-green-700 shadow-lg scale-105"
-                    : "bg-white/10 text-white hover:bg-white/20"
+                    ? "bg-green-600 text-white shadow-lg scale-105"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 {cat.name}
@@ -234,21 +234,21 @@ export default function Home() {
           </div>
 
           {/* Category Content */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8">
+          <div className="bg-gradient-to-br from-gray-50 to-green-50 rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
             <div className="mb-8">
-              <h3 className="text-3xl font-bold mb-4">
+              <h3 className="text-3xl font-bold mb-6 text-foreground">
                 {categories.find(c => c.id === activeCategory)?.fullName}
               </h3>
               
               {/* Training Times */}
-              <div className="mb-6">
-                <h4 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                  <Users className="h-5 w-5" />
+              <div className="mb-8">
+                <h4 className="text-2xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                  <Users className="h-6 w-6 text-green-600" />
                   Tréningové časy
                 </h4>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-4">
                   {trainingTimes[activeCategory].map((time, idx) => (
-                    <span key={idx} className="px-4 py-2 bg-green-600/30 rounded-lg text-sm">
+                    <span key={idx} className="px-6 py-3 bg-green-600 text-white rounded-lg text-lg font-semibold shadow-md hover:bg-green-700 transition-colors">
                       {time}
                     </span>
                   ))}
@@ -257,7 +257,7 @@ export default function Home() {
 
               {/* BFZ Link */}
               <div className="mb-8">
-                <Button variant="secondary" asChild className="bg-green-600 hover:bg-green-700 text-white">
+                <Button size="lg" asChild className="bg-green-600 hover:bg-green-700 text-white shadow-md">
                   <a href={bfzLinks[activeCategory]} target="_blank" rel="noopener noreferrer">
                     Pozrieť výsledky na BFZ
                   </a>
@@ -267,10 +267,10 @@ export default function Home() {
 
             {/* Trainers Section */}
             <div className="mb-12">
-              <h4 className="text-2xl font-bold mb-6">Tréneri</h4>
+              <h4 className="text-2xl font-bold mb-6 text-foreground">Tréneri</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {trainers.map((trainer, idx) => (
-                  <Card key={idx} className="bg-white/10 border-white/20 hover:bg-white/15 transition-all">
+                  <Card key={idx} className="bg-white border-gray-200 hover:shadow-xl transition-all">
                     <CardContent className="p-6">
                       <div className="flex items-center gap-4 mb-4">
                         <img
@@ -279,11 +279,11 @@ export default function Home() {
                           className="w-20 h-20 rounded-full bg-white/20"
                         />
                         <div>
-                          <h5 className="font-bold text-lg text-white">{trainer.name}</h5>
-                          <p className="text-green-200 text-sm">{trainer.role}</p>
+                          <h5 className="font-bold text-lg text-foreground">{trainer.name}</h5>
+                          <p className="text-green-600 text-sm font-medium">{trainer.role}</p>
                         </div>
                       </div>
-                      <p className="text-gray-200 text-sm">{trainer.description}</p>
+                      <p className="text-muted-foreground text-sm">{trainer.description}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -293,7 +293,7 @@ export default function Home() {
             {/* Player Cards (only for A team) */}
             {activeCategory === "A" && (
               <div>
-                <h4 className="text-2xl font-bold mb-6">Hráči</h4>
+                <h4 className="text-2xl font-bold mb-6 text-foreground">Hráči</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {aTeamPlayers.map((player, idx) => (
                     <Card key={idx} className="bg-white hover:shadow-2xl transition-all group overflow-hidden">
