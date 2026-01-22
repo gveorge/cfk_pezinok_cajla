@@ -1,6 +1,6 @@
 import { eq, and, desc, sql, gte, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, players, trainings, attendance, news, gallery, InsertPlayer, InsertTraining, InsertAttendance, InsertNews, InsertGallery } from "../drizzle/schema";
+import { InsertUser, users, players, trainings, attendance, news, gallery, membershipPayments, InsertPlayer, InsertTraining, InsertAttendance, InsertNews, InsertGallery, InsertMembershipPayment } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -331,4 +331,86 @@ export async function deleteGalleryItem(id: number) {
   if (!db) throw new Error("Database not available");
   
   await db.delete(gallery).where(eq(gallery.id, id));
+}
+
+// Membership Payments
+export async function setMembershipPayment(playerId: number, year: number, month: number, paid: boolean, amount?: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const existing = await db
+    .select()
+    .from(membershipPayments)
+    .where(
+      and(
+        eq(membershipPayments.playerId, playerId),
+        eq(membershipPayments.year, year),
+        eq(membershipPayments.month, month)
+      )
+    )
+    .limit(1);
+  
+  if (existing.length > 0) {
+    // Update existing
+    await db
+      .update(membershipPayments)
+      .set({
+        paid: paid ? 1 : 0,
+        amount: amount,
+        paidAt: paid ? new Date() : null,
+      })
+      .where(eq(membershipPayments.id, existing[0]!.id));
+  } else {
+    // Insert new
+    await db.insert(membershipPayments).values({
+      playerId,
+      year,
+      month,
+      paid: paid ? 1 : 0,
+      amount,
+      paidAt: paid ? new Date() : null,
+    });
+  }
+}
+
+export async function getMembershipPaymentsByPlayer(playerId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db
+    .select()
+    .from(membershipPayments)
+    .where(eq(membershipPayments.playerId, playerId))
+    .orderBy(desc(membershipPayments.year), desc(membershipPayments.month));
+  
+  return result;
+}
+
+export async function getMembershipPaymentsByYearMonth(year: number, month: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db
+    .select()
+    .from(membershipPayments)
+    .where(
+      and(
+        eq(membershipPayments.year, year),
+        eq(membershipPayments.month, month)
+      )
+    );
+  
+  return result;
+}
+
+export async function getAllMembershipPayments() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db
+    .select()
+    .from(membershipPayments)
+    .orderBy(desc(membershipPayments.year), desc(membershipPayments.month));
+  
+  return result;
 }

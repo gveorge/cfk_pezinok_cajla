@@ -270,6 +270,48 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
+
+  // Membership Payments
+  membershipPayments: router({
+    setPayment: protectedProcedure
+      .input(z.object({
+        playerId: z.number(),
+        year: z.number(),
+        month: z.number().min(1).max(12),
+        paid: z.boolean(),
+        amount: z.number().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        await db.setMembershipPayment(
+          input.playerId,
+          input.year,
+          input.month,
+          input.paid,
+          input.amount
+        );
+        return { success: true };
+      }),
+
+    getByPlayer: protectedProcedure
+      .input(z.object({ playerId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getMembershipPaymentsByPlayer(input.playerId);
+      }),
+
+    getByYearMonth: protectedProcedure
+      .input(z.object({
+        year: z.number(),
+        month: z.number().min(1).max(12),
+      }))
+      .query(async ({ input }) => {
+        return await db.getMembershipPaymentsByYearMonth(input.year, input.month);
+      }),
+
+    getAll: protectedProcedure
+      .query(async () => {
+        return await db.getAllMembershipPayments();
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

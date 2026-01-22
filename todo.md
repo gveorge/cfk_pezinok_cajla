@@ -66,3 +66,11 @@
 ## New Layout and Features
 - [x] Rearrange categories into pyramid layout on homepage (A mužstvo top, U15/U13 below, U11/U10 below, U8/U9 bottom)
 - [x] Add year filtering to gallery page
+
+## New Feature Requests
+- [x] Add Google Maps to contact page (Cajlanská 243/A, 902 01 Pezinok)
+- [x] Change year filtering in gallery to dropdown/select instead of buttons
+- [x] Create membership fee tracking section in trainer dashboard
+- [x] Add database table for membership fee payments
+- [x] Implement monthly payment checkboxes for each player
+- [x] Create overview of payment status per player

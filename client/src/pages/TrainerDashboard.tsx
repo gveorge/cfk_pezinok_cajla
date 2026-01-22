@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
-import { Users, Calendar, BarChart3, Newspaper, Image as ImageIcon, Home, LogOut } from "lucide-react";
+import { Users, Calendar, BarChart3, Newspaper, Image as ImageIcon, Home, LogOut, DollarSign } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
 export default function TrainerDashboard() {
@@ -53,6 +53,12 @@ export default function TrainerDashboard() {
       icon: BarChart3,
       title: "Dochádzka",
       description: "Prehľad dochádzky hráčov",
+    },
+    {
+      href: "/trainer/membership-fees",
+      icon: DollarSign,
+      title: "Členský poplatok",
+      description: "Správa mesačných poplatkov",
     },
     {
       href: "/trainer/news",

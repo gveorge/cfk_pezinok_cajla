@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { getLoginUrl } from "@/const";
 import { MapPin, Phone, Mail, LogOut, User, ArrowLeft, Facebook, Instagram, Youtube } from "lucide-react";
 import { Link } from "wouter";
+import { MapView } from "@/components/Map";
 
 export default function Contact() {
   const { user, loading, isAuthenticated, logout } = useAuth();
@@ -88,8 +89,8 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg">
-                  CFK Pezinok Cajla<br />
-                  Pezinok<br />
+                  Cajlanská 243/A<br />
+                  902 01 Pezinok<br />
                   Slovensko
                 </p>
               </CardContent>
@@ -179,18 +180,27 @@ export default function Contact() {
             </Card>
           </div>
 
-          {/* Map Placeholder */}
+          {/* Google Maps */}
           <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="text-2xl">Kde nás nájdete</CardTitle>
-              <CardDescription>Naše tréningové centrum v Pezinku</CardDescription>
+              <CardDescription>Naše tréningové centrum v Pezinku - Cajlanská 243/A</CardDescription>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="w-full h-96 bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">Mapa bude pridaná</p>
-                </div>
+              <div className="w-full h-96">
+                <MapView
+                  initialCenter={{ lat: 48.2894, lng: 17.2669 }}
+                  initialZoom={15}
+                  onMapReady={(map) => {
+                    // Add marker for CFK Pezinok Cajla
+                    const position = { lat: 48.2894, lng: 17.2669 };
+                    new google.maps.marker.AdvancedMarkerElement({
+                      map,
+                      position: position,
+                      title: "CFK Pezinok Cajla - Cajlanská 243/A",
+                    });
+                  }}
+                />
               </div>
             </CardContent>
           </Card>

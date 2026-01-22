@@ -1,6 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { ArrowLeft, LogOut, User } from "lucide-react";
@@ -120,18 +121,18 @@ export default function Gallery() {
             {/* Year Filter */}
             <div>
               <h3 className="text-sm font-semibold text-foreground mb-3">Filtrovať podľa roku</h3>
-              <div className="flex flex-wrap gap-2">
-                {years.map((year) => (
-                  <Button
-                    key={year.value}
-                    variant={selectedYear === year.value ? "default" : "outline"}
-                    onClick={() => setSelectedYear(year.value)}
-                    size="sm"
-                  >
-                    {year.label}
-                  </Button>
-                ))}
-              </div>
+              <Select value={selectedYear} onValueChange={setSelectedYear}>
+                <SelectTrigger className="w-full sm:w-64">
+                  <SelectValue placeholder="Vyberte rok" />
+                </SelectTrigger>
+                <SelectContent>
+                  {years.map((year) => (
+                    <SelectItem key={year.value} value={year.value}>
+                      {year.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Category Filter */}

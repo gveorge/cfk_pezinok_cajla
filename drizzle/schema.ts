@@ -19,7 +19,26 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
 /**
- * Players table - stores information about football players
+ * Membership fee payments table
+ * Tracks monthly membership fee payments for each player
+ */
+export const membershipPayments = mysqlTable("membership_payments", {
+  id: int("id").autoincrement().primaryKey(),
+  playerId: int("player_id").notNull(),
+  year: int("year").notNull(),
+  month: int("month").notNull(), // 1-12
+  paid: int("paid").notNull().default(0), // 0 = not paid, 1 = paid
+  amount: int("amount"), // Optional: amount paid
+  paidAt: timestamp("paid_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
+export type MembershipPayment = typeof membershipPayments.$inferSelect;
+export type InsertMembershipPayment = typeof membershipPayments.$inferInsert;
+
+/**
+ * Players table - information about football players
  */
 export const players = mysqlTable("players", {
   id: int("id").autoincrement().primaryKey(),
