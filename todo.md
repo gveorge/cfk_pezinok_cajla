@@ -93,3 +93,6 @@
 - [x] Change all buttons and training times to use gradient colors matching hero section (light green to dark green)
 - [x] Add "2 % z dane" link to navigation menu
 - [x] Create new page for 2% tax form download
+
+## Design Adjustments
+- [x] Change "Kontaktujte nás" and "Galéria" buttons to white background for better contrast

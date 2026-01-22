@@ -199,12 +199,12 @@ export default function Home() {
               Futbalový klub s tradíciou a perspektívou. Rozvíjame mladé talenty a podporujeme lásku k futbalu.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" variant="secondary" asChild className="bg-gradient-to-r from-green-600 to-green-800 text-white hover:from-green-700 hover:to-green-900 shadow-lg">
+              <Button size="lg" asChild className="bg-white text-green-700 hover:bg-gray-100 shadow-lg font-semibold">
                 <Link href="/contact">
                   <a>Kontaktujte nás</a>
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="border-2 border-white text-white hover:bg-white hover:text-green-700 transition-all">
+              <Button size="lg" asChild className="bg-white text-green-700 hover:bg-gray-100 shadow-lg font-semibold">
                 <Link href="/gallery">
                   <a>Galéria</a>
                 </Link>
