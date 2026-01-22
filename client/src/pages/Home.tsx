@@ -155,6 +155,9 @@ export default function Home() {
               <Link href="/contact">
                 <a className="text-sm font-medium hover:text-primary transition-colors">Kontakt</a>
               </Link>
+              <Link href="/tax-donation">
+                <a className="text-sm font-medium hover:text-primary transition-colors">2 % z dane</a>
+              </Link>
               <Link href="/trainer">
                 <a className="text-sm font-medium hover:text-primary transition-colors">Trénerská sekcia</a>
               </Link>
@@ -196,12 +199,12 @@ export default function Home() {
               Futbalový klub s tradíciou a perspektívou. Rozvíjame mladé talenty a podporujeme lásku k futbalu.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" variant="secondary" asChild className="bg-white text-green-700 hover:bg-green-50">
+              <Button size="lg" variant="secondary" asChild className="bg-gradient-to-r from-green-600 to-green-800 text-white hover:from-green-700 hover:to-green-900 shadow-lg">
                 <Link href="/contact">
                   <a>Kontaktujte nás</a>
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="border-white text-white hover:bg-white/10">
+              <Button size="lg" variant="outline" asChild className="border-2 border-white text-white hover:bg-white hover:text-green-700 transition-all">
                 <Link href="/gallery">
                   <a>Galéria</a>
                 </Link>
@@ -224,7 +227,7 @@ export default function Home() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
                   activeCategory === cat.id
-                    ? "bg-green-600 text-white shadow-lg scale-105"
+                    ? "bg-gradient-to-r from-green-600 to-green-800 text-white shadow-lg scale-105"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
@@ -248,7 +251,7 @@ export default function Home() {
                 </h4>
                 <div className="flex flex-wrap gap-4">
                   {trainingTimes[activeCategory].map((time, idx) => (
-                    <span key={idx} className="px-6 py-3 bg-green-600 text-white rounded-lg text-lg font-semibold shadow-md hover:bg-green-700 transition-colors">
+                    <span key={idx} className="px-6 py-3 bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg text-lg font-semibold shadow-md hover:from-green-700 hover:to-green-900 transition-all cursor-default">
                       {time}
                     </span>
                   ))}
@@ -257,7 +260,7 @@ export default function Home() {
 
               {/* BFZ Link */}
               <div className="mb-8">
-                <Button size="lg" asChild className="bg-green-600 hover:bg-green-700 text-white shadow-md">
+                <Button size="lg" asChild className="bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white shadow-lg">
                   <a href={bfzLinks[activeCategory]} target="_blank" rel="noopener noreferrer">
                     Pozrieť výsledky na BFZ
                   </a>

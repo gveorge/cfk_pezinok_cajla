@@ -88,3 +88,8 @@
 - [x] Make training times larger and more visible
 - [x] Fix dark green color scheme - make it lighter and more readable
 - [x] Improve overall color contrast and readability
+
+## New Design and Feature Requests
+- [x] Change all buttons and training times to use gradient colors matching hero section (light green to dark green)
+- [x] Add "2 % z dane" link to navigation menu
+- [x] Create new page for 2% tax form download

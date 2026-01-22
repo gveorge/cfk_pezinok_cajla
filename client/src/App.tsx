@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import CategoryDetail from "./pages/CategoryDetail";
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
+import TaxDonation from "./pages/TaxDonation";
 import TrainerDashboard from "./pages/TrainerDashboard";
 import TrainerPlayers from "./pages/TrainerPlayers";
 import TrainerTrainings from "./pages/TrainerTrainings";
@@ -24,6 +25,7 @@ function Router() {
       <Route path={"/404"} component={NotFound} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/gallery"} component={Gallery} />
+      <Route path={"/tax-donation"} component={TaxDonation} />
       <Route path={"/trainer"} component={TrainerDashboard} />
       <Route path={"/trainer/players"} component={TrainerPlayers} />
       <Route path={"/trainer/trainings"} component={TrainerTrainings} />
