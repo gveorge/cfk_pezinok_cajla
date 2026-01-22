@@ -189,15 +189,15 @@ export default function Contact() {
             <CardContent className="p-0">
               <div className="w-full h-96">
                 <MapView
-                  initialCenter={{ lat: 48.2894, lng: 17.2669 }}
-                  initialZoom={15}
+                  initialCenter={{ lat: 48.293, lng: 17.273 }}
+                  initialZoom={16}
                   onMapReady={(map) => {
-                    // Add marker for CFK Pezinok Cajla
-                    const position = { lat: 48.2894, lng: 17.2669 };
+                    // Add marker for CFK Pezinok - Cajla football field
+                    const position = { lat: 48.293, lng: 17.273 };
                     new google.maps.marker.AdvancedMarkerElement({
                       map,
                       position: position,
-                      title: "CFK Pezinok Cajla - Cajlanská 243/A",
+                      title: "CFK Pezinok - Cajla",
                     });
                   }}
                 />

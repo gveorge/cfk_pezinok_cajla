@@ -1,89 +1,138 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
-import { trpc } from "@/lib/trpc";
-import {
-  Users,
-  Target,
-  Zap,
-  Trophy,
-  Calendar,
-  MapPin,
-  Phone,
-  Mail,
-  LogOut,
-  User,
-} from "lucide-react";
+import { LogOut, User, Users } from "lucide-react";
 import { Link } from "wouter";
+import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+
+type Category = "A" | "U15" | "U13" | "U11" | "U10" | "U9" | "U8";
 
 const categories = [
-  {
-    id: "U8",
-    title: "U8",
-    subtitle: "Mladšia prípravka",
-    icon: Users,
-    color: "from-blue-400 to-blue-500",
-    bgColor: "bg-blue-50",
-  },
-  {
-    id: "U9",
-    title: "U9",
-    subtitle: "Mladšia prípravka",
-    icon: Users,
-    color: "from-blue-500 to-blue-600",
-    bgColor: "bg-blue-50",
-  },
-  {
-    id: "U10",
-    title: "U10",
-    subtitle: "Staršia prípravka",
-    icon: Target,
-    color: "from-green-400 to-green-500",
-    bgColor: "bg-green-50",
-  },
-  {
-    id: "U11",
-    title: "U11",
-    subtitle: "Staršia prípravka",
-    icon: Target,
-    color: "from-green-500 to-green-600",
-    bgColor: "bg-green-50",
-  },
-  {
-    id: "U13",
-    title: "U13",
-    subtitle: "Mladší žiaci",
-    icon: Zap,
-    color: "from-yellow-500 to-yellow-600",
-    bgColor: "bg-yellow-50",
-  },
-  {
-    id: "U15",
-    title: "U15",
-    subtitle: "Starší žiaci",
-    icon: Trophy,
-    color: "from-orange-500 to-orange-600",
-    bgColor: "bg-orange-50",
-  },
-  {
-    id: "A",
-    title: "A mužstvo",
-    subtitle: "Seniori",
-    icon: Trophy,
-    color: "from-red-500 to-red-600",
-    bgColor: "bg-red-50",
-  },
+  { id: "A" as Category, name: "A mužstvo", fullName: "A mužstvo" },
+  { id: "U15" as Category, name: "U15", fullName: "Starší žiaci U15" },
+  { id: "U13" as Category, name: "U13", fullName: "Mladší žiaci U13" },
+  { id: "U11" as Category, name: "U11", fullName: "Staršia prípravka U11" },
+  { id: "U10" as Category, name: "U10", fullName: "Staršia prípravka U10" },
+  { id: "U9" as Category, name: "U9", fullName: "Mladšia prípravka U9" },
+  { id: "U8" as Category, name: "U8", fullName: "Mladšia prípravka U8" },
 ];
+
+// Mock data for trainers
+const trainersData: Record<Category, Array<{ name: string; role: string; image: string; description: string }>> = {
+  A: [
+    {
+      name: "Peter Novák",
+      role: "Hlavný tréner",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=peter",
+      description: "UEFA Pro licencia, 15 rokov skúseností"
+    },
+    {
+      name: "Ján Horváth",
+      role: "Asistent trénera",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=jan",
+      description: "UEFA B licencia, špecialista na kondíciu"
+    }
+  ],
+  U15: [
+    {
+      name: "Martin Kováč",
+      role: "Tréner",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=martin",
+      description: "UEFA B licencia, práca s mládežou"
+    }
+  ],
+  U13: [
+    {
+      name: "Tomáš Varga",
+      role: "Tréner",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=tomas",
+      description: "UEFA C licencia, 8 rokov s mládežou"
+    }
+  ],
+  U11: [
+    {
+      name: "Michal Balog",
+      role: "Tréner",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=michal",
+      description: "UEFA C licencia, špecialista na techniku"
+    }
+  ],
+  U10: [
+    {
+      name: "Róbert Takáč",
+      role: "Tréner",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=robert",
+      description: "Trénerská licencia, 5 rokov praxe"
+    }
+  ],
+  U9: [
+    {
+      name: "Lukáš Molnár",
+      role: "Tréner",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=lukas",
+      description: "Trénerská licencia, práca s najmenšími"
+    }
+  ],
+  U8: [
+    {
+      name: "Filip Šimon",
+      role: "Tréner",
+      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=filip",
+      description: "Trénerská licencia, špecialista na U8"
+    }
+  ]
+};
+
+// Mock data for A team players
+const aTeamPlayers = [
+  { number: 1, firstName: "Matej", lastName: "NOVÁK", position: "Brankár", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player1" },
+  { number: 5, firstName: "Peter", lastName: "KOVÁČ", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player2" },
+  { number: 7, firstName: "Martin", lastName: "HORVÁTH", position: "Stredný záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player3" },
+  { number: 9, firstName: "Tomáš", lastName: "VARGA", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player4" },
+  { number: 10, firstName: "Ján", lastName: "BALOG", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player5" },
+  { number: 11, firstName: "Michal", lastName: "TAKÁČ", position: "Krídelník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player6" },
+  { number: 3, firstName: "Róbert", lastName: "MOLNÁR", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player7" },
+  { number: 8, firstName: "Filip", lastName: "ŠIMON", position: "Stredný záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player8" },
+  { number: 4, firstName: "Lukáš", lastName: "URBAN", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player9" },
+];
+
+// Training times data
+const trainingTimes: Record<Category, string[]> = {
+  A: ["Pondelok 19:00 - 21:00", "Streda 19:00 - 21:00", "Piatok 18:00 - 20:00"],
+  U15: ["Utorok 17:00 - 18:30", "Štvrtok 17:00 - 18:30"],
+  U13: ["Utorok 16:00 - 17:30", "Štvrtok 16:00 - 17:30"],
+  U11: ["Pondelok 16:00 - 17:00", "Streda 16:00 - 17:00"],
+  U10: ["Pondelok 15:00 - 16:00", "Streda 15:00 - 16:00"],
+  U9: ["Utorok 15:00 - 16:00", "Štvrtok 15:00 - 16:00"],
+  U8: ["Utorok 14:30 - 15:30", "Štvrtok 14:30 - 15:30"],
+};
+
+// BFZ links
+const bfzLinks: Record<Category, string> = {
+  A: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/a-muzstvo/vysledky/",
+  U15: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u15-m-a/vysledky/",
+  U13: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u13-m-a/vysledky/",
+  U11: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u11-m-a/vysledky/",
+  U10: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u10-m-a/vysledky/",
+  U9: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u9-m-a/vysledky/",
+  U8: "https://sportnet.sme.sk/futbalnet/k/cfk-pezinok-cajla/tim/u8-m-a/vysledky/",
+};
 
 export default function Home() {
   const { user, loading, isAuthenticated, logout } = useAuth();
-  const { data: newsItems = [] } = trpc.news.list.useQuery();
+  const [activeCategory, setActiveCategory] = useState<Category>("A");
+  
+  const newsQuery = trpc.news.list.useQuery({ limit: 3 });
+  const news = newsQuery.data || [];
+
+  const trainers = trainersData[activeCategory] || [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-white/80 backdrop-blur-lg">
+      <header className="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur-lg shadow-sm">
         <div className="container py-3">
           <div className="flex items-center justify-between">
             <Link href="/">
@@ -98,7 +147,7 @@ export default function Home() {
 
             <nav className="hidden md:flex items-center gap-6">
               <Link href="/">
-                <a className="text-sm font-medium hover:text-primary transition-colors">Domov</a>
+                <a className="text-sm font-medium text-primary">Domov</a>
               </Link>
               <Link href="/gallery">
                 <a className="text-sm font-medium hover:text-primary transition-colors">Galéria</a>
@@ -135,193 +184,168 @@ export default function Home() {
         </div>
       </header>
 
-      <main>
-        {/* Hero Section */}
-        <section className="relative py-20 px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-white to-green-100" />
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-20 left-20 w-64 h-64 bg-green-500 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-20 right-20 w-80 h-80 bg-primary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-          </div>
-          <div className="container relative z-10 text-center">
-            <h2 className="text-4xl md:text-6xl font-extrabold mb-8 bg-gradient-to-r from-gray-900 via-green-700 to-gray-900 bg-clip-text text-transparent leading-tight">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-green-600 via-green-700 to-gray-900 text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
+        <div className="container relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
               Vitajte v CFK Pezinok Cajla
             </h2>
-            <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-10 font-medium leading-relaxed">
+            <p className="text-xl md:text-2xl text-green-50 mb-8">
               Futbalový klub s tradíciou a perspektívou. Rozvíjame mladé talenty a podporujeme lásku k futbalu.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8" asChild>
+              <Button size="lg" variant="secondary" asChild className="bg-white text-green-700 hover:bg-green-50">
                 <Link href="/contact">
                   <a>Kontaktujte nás</a>
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8" asChild>
+              <Button size="lg" variant="outline" asChild className="border-white text-white hover:bg-white/10">
                 <Link href="/gallery">
-                  <a>
-                    <Calendar className="mr-2 h-5 w-5" />
-                    Galéria
-                  </a>
+                  <a>Galéria</a>
                 </Link>
               </Button>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Categories Section */}
-        <section className="py-16 px-4 bg-white">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h3 className="text-4xl font-bold mb-4 text-foreground">Naše kategórie</h3>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Futbal pre všetky vekové skupiny
-              </p>
-            </div>
-
-            {/* Pyramid Layout */}
-            <div className="max-w-5xl mx-auto space-y-6">
-              {/* Top - A mužstvo */}
-              <div className="flex justify-center">
-                {categories.filter(c => c.id === 'A').map((category) => {
-                  const Icon = category.icon;
-                  const categoryPath = `/category/${category.id.toLowerCase()}`;
-                  return (
-                    <Link key={category.id} href={categoryPath}>
-                      <a className="block w-64">
-                        <Card
-                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
-                        >
-                          <CardHeader className="text-center pb-4">
-                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                              <Icon className="h-10 w-10 text-white" />
-                            </div>
-                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
-                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
-                          </CardHeader>
-                        </Card>
-                      </a>
-                    </Link>
-                  );
-                })}
-              </div>
-
-              {/* Second row - U15, U13 */}
-              <div className="flex justify-center gap-6">
-                {categories.filter(c => c.id === 'U15' || c.id === 'U13').map((category) => {
-                  const Icon = category.icon;
-                  const categoryPath = `/category/${category.id.toLowerCase()}`;
-                  return (
-                    <Link key={category.id} href={categoryPath}>
-                      <a className="block w-56">
-                        <Card
-                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
-                        >
-                          <CardHeader className="text-center pb-4">
-                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                              <Icon className="h-10 w-10 text-white" />
-                            </div>
-                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
-                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
-                          </CardHeader>
-                        </Card>
-                      </a>
-                    </Link>
-                  );
-                })}
-              </div>
-
-              {/* Third row - U11, U10 */}
-              <div className="flex justify-center gap-6">
-                {categories.filter(c => c.id === 'U11' || c.id === 'U10').map((category) => {
-                  const Icon = category.icon;
-                  const categoryPath = `/category/${category.id.toLowerCase()}`;
-                  return (
-                    <Link key={category.id} href={categoryPath}>
-                      <a className="block w-56">
-                        <Card
-                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
-                        >
-                          <CardHeader className="text-center pb-4">
-                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                              <Icon className="h-10 w-10 text-white" />
-                            </div>
-                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
-                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
-                          </CardHeader>
-                        </Card>
-                      </a>
-                    </Link>
-                  );
-                })}
-              </div>
-
-              {/* Bottom row - U9, U8 */}
-              <div className="flex justify-center gap-6">
-                {categories.filter(c => c.id === 'U9' || c.id === 'U8').map((category) => {
-                  const Icon = category.icon;
-                  const categoryPath = `/category/${category.id.toLowerCase()}`;
-                  return (
-                    <Link key={category.id} href={categoryPath}>
-                      <a className="block w-56">
-                        <Card
-                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
-                        >
-                          <CardHeader className="text-center pb-4">
-                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                              <Icon className="h-10 w-10 text-white" />
-                            </div>
-                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
-                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
-                          </CardHeader>
-                        </Card>
-                      </a>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+      {/* Category Tabs Section */}
+      <section className="bg-gradient-to-r from-gray-900 via-green-900 to-gray-900 text-white py-8">
+        <div className="container">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8">Naše kategórie</h2>
+          
+          {/* Horizontal Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
+                  activeCategory === cat.id
+                    ? "bg-white text-green-700 shadow-lg scale-105"
+                    : "bg-white/10 text-white hover:bg-white/20"
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
-        </section>
 
-        {/* News Section */}
-        {newsItems.length > 0 && (
-          <section className="py-16 px-4 bg-gradient-to-br from-green-50 to-blue-50">
-            <div className="container">
-              <div className="text-center mb-12">
-                <h3 className="text-4xl font-bold mb-4 text-foreground">Aktuality</h3>
-                <p className="text-lg text-muted-foreground">Najnovšie správy z klubu</p>
+          {/* Category Content */}
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8">
+            <div className="mb-8">
+              <h3 className="text-3xl font-bold mb-4">
+                {categories.find(c => c.id === activeCategory)?.fullName}
+              </h3>
+              
+              {/* Training Times */}
+              <div className="mb-6">
+                <h4 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                  <Users className="h-5 w-5" />
+                  Tréningové časy
+                </h4>
+                <div className="flex flex-wrap gap-3">
+                  {trainingTimes[activeCategory].map((time, idx) => (
+                    <span key={idx} className="px-4 py-2 bg-green-600/30 rounded-lg text-sm">
+                      {time}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {newsItems.slice(0, 3).map((item: any) => (
-                  <Card key={item.id} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
-                    {item.imageUrl && (
-                      <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+              {/* BFZ Link */}
+              <div className="mb-8">
+                <Button variant="secondary" asChild className="bg-green-600 hover:bg-green-700 text-white">
+                  <a href={bfzLinks[activeCategory]} target="_blank" rel="noopener noreferrer">
+                    Pozrieť výsledky na BFZ
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            {/* Trainers Section */}
+            <div className="mb-12">
+              <h4 className="text-2xl font-bold mb-6">Tréneri</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {trainers.map((trainer, idx) => (
+                  <Card key={idx} className="bg-white/10 border-white/20 hover:bg-white/15 transition-all">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-4 mb-4">
                         <img
-                          src={item.imageUrl}
-                          alt={item.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          src={trainer.image}
+                          alt={trainer.name}
+                          className="w-20 h-20 rounded-full bg-white/20"
                         />
+                        <div>
+                          <h5 className="font-bold text-lg text-white">{trainer.name}</h5>
+                          <p className="text-green-200 text-sm">{trainer.role}</p>
+                        </div>
                       </div>
-                    )}
-                    <CardHeader>
-                      <CardTitle className="text-lg line-clamp-2">{item.title}</CardTitle>
-                      <CardDescription>
-                        {new Date(item.createdAt).toLocaleDateString("sk-SK")}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground line-clamp-3">{item.content}</p>
+                      <p className="text-gray-200 text-sm">{trainer.description}</p>
                     </CardContent>
                   </Card>
                 ))}
               </div>
             </div>
-          </section>
-        )}
 
+            {/* Player Cards (only for A team) */}
+            {activeCategory === "A" && (
+              <div>
+                <h4 className="text-2xl font-bold mb-6">Hráči</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {aTeamPlayers.map((player, idx) => (
+                    <Card key={idx} className="bg-white hover:shadow-2xl transition-all group overflow-hidden">
+                      <CardContent className="p-0 relative">
+                        <div className="absolute top-4 left-4 text-8xl font-bold text-gray-100 z-0">
+                          {player.number}
+                        </div>
+                        <div className="relative z-10 p-6">
+                          <div className="flex justify-center mb-4">
+                            <img
+                              src={player.image}
+                              alt={`${player.firstName} ${player.lastName}`}
+                              className="w-32 h-32 rounded-full bg-gray-100 group-hover:scale-110 transition-transform"
+                            />
+                          </div>
+                          <div className="text-center">
+                            <p className="text-sm text-green-600 font-medium mb-1">{player.firstName}</p>
+                            <h5 className="text-xl font-bold text-gray-900 mb-2">{player.lastName}</h5>
+                            <p className="text-sm text-gray-600">{player.position}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
-      </main>
+      {/* News Section */}
+      {news.length > 0 && (
+        <section className="py-16 px-4">
+          <div className="container">
+            <h2 className="text-4xl font-bold text-center mb-12 text-foreground">Aktuality</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {news.map((item) => (
+                <Card key={item.id} className="hover:shadow-xl transition-all">
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold mb-3 text-foreground">{item.title}</h3>
+                    <p className="text-muted-foreground mb-4 line-clamp-3">{item.content}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {new Date(item.createdAt).toLocaleDateString('sk-SK')}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <footer className="bg-gradient-to-r from-gray-900 via-green-900 to-gray-900 text-white py-12">
@@ -361,8 +385,8 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-3 text-lg">Kontakt</h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>Pezinok, Slovensko</li>
-                <li>+421 XXX XXX XXX</li>
+                <li>Cajlanská 243/A</li>
+                <li>902 01 Pezinok</li>
                 <li>info@cfkpezinok.sk</li>
               </ul>
             </div>

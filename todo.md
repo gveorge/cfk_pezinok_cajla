@@ -74,3 +74,12 @@
 - [x] Add database table for membership fee payments
 - [x] Implement monthly payment checkboxes for each player
 - [x] Create overview of payment status per player
+
+## New User Requests - Homepage Redesign
+- [x] Fix map marker location to actual CFK Pezinok - Cajla coordinates
+- [x] Restrict login to trainers only (all logged users are considered trainers)
+- [x] Redesign homepage - categories displayed horizontally like Chelsea website
+- [x] Default to A mužstvo category on homepage
+- [x] Categories switch on same page without navigation (tabs/accordion style)
+- [x] Add player cards with photos for A mužstvo category
+- [x] Keep only trainers for other categories (no player cards)
