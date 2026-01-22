@@ -99,3 +99,7 @@
 
 ## Mobile Responsiveness
 - [x] Add hamburger menu for mobile devices to show navigation links
+
+## Bug Fixes - Branding
+- [x] Fix "Čajla" to "Cajla" in meta tags and link previews
+- [ ] Fix "Čajla" to "Cajla" in login/OAuth screens (requires manual update of VITE_APP_TITLE in Settings → General)
