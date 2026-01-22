@@ -178,28 +178,107 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-6">
-              {categories.map((category) => {
-                const Icon = category.icon;
-                const categoryPath = `/category/${category.id.toLowerCase()}`;
-                return (
-                  <Link key={category.id} href={categoryPath}>
-                    <a>
-                      <Card
-                        className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
-                      >
-                        <CardHeader className="text-center pb-4">
-                          <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                            <Icon className="h-10 w-10 text-white" />
-                          </div>
-                          <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
-                          <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
-                        </CardHeader>
-                      </Card>
-                    </a>
-                  </Link>
-                );
-              })}
+            {/* Pyramid Layout */}
+            <div className="max-w-5xl mx-auto space-y-6">
+              {/* Top - A mužstvo */}
+              <div className="flex justify-center">
+                {categories.filter(c => c.id === 'A').map((category) => {
+                  const Icon = category.icon;
+                  const categoryPath = `/category/${category.id.toLowerCase()}`;
+                  return (
+                    <Link key={category.id} href={categoryPath}>
+                      <a className="block w-64">
+                        <Card
+                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
+                        >
+                          <CardHeader className="text-center pb-4">
+                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                              <Icon className="h-10 w-10 text-white" />
+                            </div>
+                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
+                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
+                          </CardHeader>
+                        </Card>
+                      </a>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Second row - U15, U13 */}
+              <div className="flex justify-center gap-6">
+                {categories.filter(c => c.id === 'U15' || c.id === 'U13').map((category) => {
+                  const Icon = category.icon;
+                  const categoryPath = `/category/${category.id.toLowerCase()}`;
+                  return (
+                    <Link key={category.id} href={categoryPath}>
+                      <a className="block w-56">
+                        <Card
+                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
+                        >
+                          <CardHeader className="text-center pb-4">
+                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                              <Icon className="h-10 w-10 text-white" />
+                            </div>
+                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
+                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
+                          </CardHeader>
+                        </Card>
+                      </a>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Third row - U11, U10 */}
+              <div className="flex justify-center gap-6">
+                {categories.filter(c => c.id === 'U11' || c.id === 'U10').map((category) => {
+                  const Icon = category.icon;
+                  const categoryPath = `/category/${category.id.toLowerCase()}`;
+                  return (
+                    <Link key={category.id} href={categoryPath}>
+                      <a className="block w-56">
+                        <Card
+                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
+                        >
+                          <CardHeader className="text-center pb-4">
+                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                              <Icon className="h-10 w-10 text-white" />
+                            </div>
+                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
+                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
+                          </CardHeader>
+                        </Card>
+                      </a>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Bottom row - U9, U8 */}
+              <div className="flex justify-center gap-6">
+                {categories.filter(c => c.id === 'U9' || c.id === 'U8').map((category) => {
+                  const Icon = category.icon;
+                  const categoryPath = `/category/${category.id.toLowerCase()}`;
+                  return (
+                    <Link key={category.id} href={categoryPath}>
+                      <a className="block w-56">
+                        <Card
+                          className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
+                        >
+                          <CardHeader className="text-center pb-4">
+                            <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                              <Icon className="h-10 w-10 text-white" />
+                            </div>
+                            <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
+                            <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
+                          </CardHeader>
+                        </Card>
+                      </a>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>

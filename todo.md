@@ -62,3 +62,7 @@
 - [x] Fix text overlap on homepage - "Vitajte" text overlapping with content below
 - [x] Split categories - each should have its own tile (not grouped as prípravky/žiaci)
 - [x] Add BFZ link for each category on detail pages
+
+## New Layout and Features
+- [x] Rearrange categories into pyramid layout on homepage (A mužstvo top, U15/U13 below, U11/U10 below, U8/U9 bottom)
+- [x] Add year filtering to gallery page
