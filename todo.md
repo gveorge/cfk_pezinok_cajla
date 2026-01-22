@@ -48,3 +48,11 @@
 - [x] Simplify player form - only name, date of birth, category, and position
 - [x] Make attendance overview more compact for 18+ players
 - [x] Make homepage more colorful and visually interesting
+
+## New User Requests
+- [x] Change "Pozrite galériu" button text to just "Galéria"
+- [x] Replace training times with social media links in contact page
+- [x] Remove 3 large tiles (address, phone, email) from homepage
+- [x] Make category tiles interactive - clicking opens detail page
+- [x] Create category detail pages with training times (placeholder)
+- [x] Add trainers section to category pages with photos and descriptions (placeholder)

@@ -144,7 +144,7 @@ export default function Home() {
                 <Link href="/gallery">
                   <a>
                     <Calendar className="mr-2 h-5 w-5" />
-                    Pozrite galériu
+                    Galéria
                   </a>
                 </Link>
               </Button>
@@ -165,19 +165,23 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
               {categories.map((category) => {
                 const Icon = category.icon;
+                const categoryPath = `/category/${category.id.toLowerCase()}`;
                 return (
-                  <Card
-                    key={category.id}
-                    className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
-                  >
-                    <CardHeader className="text-center pb-4">
-                      <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                        <Icon className="h-10 w-10 text-white" />
-                      </div>
-                      <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
-                      <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
-                    </CardHeader>
-                  </Card>
+                  <Link key={category.id} href={categoryPath}>
+                    <a>
+                      <Card
+                        className={`${category.bgColor} border-2 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group`}
+                      >
+                        <CardHeader className="text-center pb-4">
+                          <div className={`mx-auto mb-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                            <Icon className="h-10 w-10 text-white" />
+                          </div>
+                          <CardTitle className="text-xl font-bold">{category.title}</CardTitle>
+                          <CardDescription className="text-base font-semibold">{category.subtitle}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </a>
+                  </Link>
                 );
               })}
             </div>
@@ -221,55 +225,7 @@ export default function Home() {
           </section>
         )}
 
-        {/* Quick Info Section */}
-        <section className="py-16 px-4 bg-white">
-          <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <Card className="text-center hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-                <CardHeader>
-                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
-                    <MapPin className="h-8 w-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">Adresa</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Pezinok<br />
-                    Slovensko
-                  </p>
-                </CardContent>
-              </Card>
 
-              <Card className="text-center hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-                <CardHeader>
-                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
-                    <Phone className="h-8 w-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">Telefón</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    +421 XXX XXX XXX
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-                <CardHeader>
-                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
-                    <Mail className="h-8 w-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">Email</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    info@cfkpezinok.sk
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
