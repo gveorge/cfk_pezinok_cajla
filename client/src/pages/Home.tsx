@@ -58,7 +58,7 @@ export default function Home() {
               <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                 <img src="/club-logo.jpg" alt="CFK Pezinok Čajla" className="h-12 w-12 object-contain rounded" />
                 <div>
-                  <h1 className="text-xl font-bold text-foreground">CFK Pezinok Čajla</h1>
+                  <h1 className="text-xl font-bold text-foreground">CFK Pezinok Cajla</h1>
                   <p className="text-sm text-muted-foreground">Futbalový klub</p>
                 </div>
               </a>
