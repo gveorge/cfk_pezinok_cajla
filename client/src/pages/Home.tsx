@@ -100,7 +100,7 @@ const aTeamPlayers = [
 
 // Training times data
 const trainingTimes: Record<Category, string[]> = {
-  A: ["Pondelok 19:00 - 21:00", "Streda 19:00 - 21:00", "Piatok 18:00 - 20:00"],
+  A: ["Utorok 19:00 - 21:00", "Štvrtok 19:00 - 20:30", "Piatok 19:00 - 20:00"],
   U15: ["Utorok 17:00 - 18:30", "Štvrtok 17:00 - 18:30"],
   U13: ["Utorok 16:00 - 17:30", "Štvrtok 16:00 - 17:30"],
   U11: ["Pondelok 16:00 - 17:00", "Streda 16:00 - 17:00"],
