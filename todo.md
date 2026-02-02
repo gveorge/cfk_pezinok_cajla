@@ -103,3 +103,13 @@
 ## Bug Fixes - Branding
 - [x] Fix "Čajla" to "Cajla" in meta tags and link previews
 - [ ] Fix "Čajla" to "Cajla" in login/OAuth screens (requires manual update of VITE_APP_TITLE in Settings → General)
+
+## Trainer Authentication System
+- [x] Create trainers table in database with username, password hash, full name
+- [x] Create trainer login/logout procedures in tRPC
+- [x] Create password change procedure
+- [x] Build custom trainer login page (replace OAuth)
+- [x] Add trainer session management
+- [ ] Create change password page for trainers
+- [x] Test trainer authentication flow
+- [x] Add 4 initial trainers: Siandorj, Cajkovicm, Hupkas, Jedinakp with password Cajla123

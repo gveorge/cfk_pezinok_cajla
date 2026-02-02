@@ -1,7 +1,8 @@
 import { eq, and, desc, sql, gte, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, players, trainings, attendance, news, gallery, membershipPayments, InsertPlayer, InsertTraining, InsertAttendance, InsertNews, InsertGallery, InsertMembershipPayment } from "../drizzle/schema";
+import { InsertUser, users, players, trainings, attendance, news, gallery, membershipPayments, trainers, InsertPlayer, InsertTraining, InsertAttendance, InsertNews, InsertGallery, InsertMembershipPayment, InsertTrainer, Trainer } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import * as bcrypt from 'bcryptjs';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -412,5 +413,66 @@ export async function getAllMembershipPayments() {
     .from(membershipPayments)
     .orderBy(desc(membershipPayments.year), desc(membershipPayments.month));
   
+  return result;
+}
+
+// Trainer Authentication
+export async function initializeTrainers() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const trainerData = [
+    { username: "Siandorj", fullName: "Šiandor Ján" },
+    { username: "Cajkovicm", fullName: "Čajkovič Milan" },
+    { username: "Hupkas", fullName: "Hupka Šimon" },
+    { username: "Jedinakp", fullName: "Jedináková Petra" }
+  ];
+  
+  const initialPassword = "Cajla123";
+  const hashedPassword = await bcrypt.hash(initialPassword, 10);
+  
+  for (const trainer of trainerData) {
+    const existing = await db.select().from(trainers).where(eq(trainers.username, trainer.username)).limit(1);
+    
+    if (existing.length === 0) {
+      await db.insert(trainers).values({
+        username: trainer.username,
+        fullName: trainer.fullName,
+        passwordHash: hashedPassword
+      });
+    }
+  }
+}
+
+export async function getTrainerByUsername(username: string): Promise<Trainer | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  
+  const result = await db.select().from(trainers).where(eq(trainers.username, username)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function verifyTrainerPassword(username: string, password: string): Promise<Trainer | null> {
+  const trainer = await getTrainerByUsername(username);
+  if (!trainer) return null;
+  
+  const isValid = await bcrypt.compare(password, trainer.passwordHash);
+  return isValid ? trainer : null;
+}
+
+export async function updateTrainerPassword(trainerId: number, newPassword: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  
+  await db.update(trainers).set({ passwordHash: hashedPassword }).where(eq(trainers.id, trainerId));
+}
+
+export async function getAllTrainers() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db.select().from(trainers).orderBy(trainers.fullName);
   return result;
 }

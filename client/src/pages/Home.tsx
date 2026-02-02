@@ -159,7 +159,7 @@ export default function Home() {
               <Link href="/tax-donation">
                 <a className="text-sm font-medium hover:text-primary transition-colors">2 % z dane</a>
               </Link>
-              <Link href="/trainer">
+              <Link href="/trainer-login">
                 <a className="text-sm font-medium hover:text-primary transition-colors">Trénerská sekcia</a>
               </Link>
             </nav>
@@ -231,7 +231,7 @@ export default function Home() {
                     2 % z dane
                   </a>
                 </Link>
-                <Link href="/trainer">
+                <Link href="/trainer-login">
                   <a 
                     className="text-sm font-medium hover:text-primary py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
@@ -437,7 +437,7 @@ export default function Home() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/trainer">
+                  <Link href="/trainer-login">
                     <a className="text-gray-300 hover:text-white transition-colors">Trénerská sekcia</a>
                   </Link>
                 </li>

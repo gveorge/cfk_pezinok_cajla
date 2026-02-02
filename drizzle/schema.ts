@@ -136,3 +136,18 @@ export const gallery = mysqlTable("gallery", {
 
 export type Gallery = typeof gallery.$inferSelect;
 export type InsertGallery = typeof gallery.$inferInsert;
+
+/**
+ * Trainers table - stores trainer credentials for custom authentication
+ */
+export const trainers = mysqlTable("trainers", {
+  id: int("id").autoincrement().primaryKey(),
+  username: varchar("username", { length: 100 }).notNull().unique(),
+  fullName: varchar("full_name", { length: 255 }).notNull(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Trainer = typeof trainers.$inferSelect;
+export type InsertTrainer = typeof trainers.$inferInsert;

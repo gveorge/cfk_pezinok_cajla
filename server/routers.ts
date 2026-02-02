@@ -312,6 +312,48 @@ export const appRouter = router({
         return await db.getAllMembershipPayments();
       }),
   }),
+
+  trainer: router({
+    login: publicProcedure
+      .input(z.object({
+        username: z.string().min(1),
+        password: z.string().min(1),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const trainer = await db.verifyTrainerPassword(input.username, input.password);
+        if (!trainer) {
+          throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'Invalid username or password',
+          });
+        }
+
+        const sessionData = JSON.stringify({
+          trainerId: trainer.id,
+          username: trainer.username,
+          fullName: trainer.fullName,
+        });
+        
+        const cookieOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.cookie('trainer_session', sessionData, { ...cookieOptions, maxAge: 7 * 24 * 60 * 60 * 1000 });
+        
+        return {
+          success: true,
+          trainer: {
+            id: trainer.id,
+            username: trainer.username,
+            fullName: trainer.fullName,
+          },
+        };
+      }),
+
+    logout: publicProcedure
+      .mutation(({ ctx }) => {
+        const cookieOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.clearCookie('trainer_session', { ...cookieOptions, maxAge: -1 });
+        return { success: true };
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;
