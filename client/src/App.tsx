@@ -17,6 +17,7 @@ import TrainerMembershipFees from "./pages/TrainerMembershipFees";
 import TrainerNews from "./pages/TrainerNews";
 import TrainerGallery from "./pages/TrainerGallery";
 import TrainerLogin from "./pages/TrainerLogin";
+import TrainerChangePassword from "./pages/TrainerChangePassword";
 
 function Router() {
   return (
@@ -36,6 +37,7 @@ function Router() {
       <Route path={"/trainer/membership-fees"} component={TrainerMembershipFees} />
       <Route path={"/trainer/news"} component={TrainerNews} />
       <Route path={"/trainer/gallery"} component={TrainerGallery} />
+      <Route path={"/trainer/change-password"} component={TrainerChangePassword} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

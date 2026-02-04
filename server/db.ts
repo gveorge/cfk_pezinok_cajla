@@ -476,3 +476,11 @@ export async function getAllTrainers() {
   const result = await db.select().from(trainers).orderBy(trainers.fullName);
   return result;
 }
+
+export async function getTrainerById(trainerId: number): Promise<Trainer | null> {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db.select().from(trainers).where(eq(trainers.id, trainerId)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}

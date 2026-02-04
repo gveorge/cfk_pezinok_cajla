@@ -353,6 +353,33 @@ export const appRouter = router({
         ctx.res.clearCookie('trainer_session', { ...cookieOptions, maxAge: -1 });
         return { success: true };
       }),
+
+    changePassword: publicProcedure
+      .input(z.object({
+        trainerId: z.number(),
+        currentPassword: z.string().min(1),
+        newPassword: z.string().min(6),
+      }))
+      .mutation(async ({ input }) => {
+        const trainer = await db.getTrainerById(input.trainerId);
+        if (!trainer) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Trainer not found',
+          });
+        }
+
+        const isPasswordValid = await db.verifyTrainerPassword(trainer.username, input.currentPassword);
+        if (!isPasswordValid) {
+          throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'Aktualne heslo je nespravne',
+          });
+        }
+
+        await db.updateTrainerPassword(input.trainerId, input.newPassword);
+        return { success: true };
+      }),
   }),
 });
 

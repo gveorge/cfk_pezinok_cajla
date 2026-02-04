@@ -1,33 +1,32 @@
-import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getLoginUrl } from "@/const";
-import { Users, Calendar, BarChart3, Newspaper, Image as ImageIcon, Home, LogOut, DollarSign } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { Users, Calendar, BarChart3, Newspaper, Image as ImageIcon, Home, LogOut, DollarSign, Key } from "lucide-react";
+import { Link } from "wouter";
+import { useState, useEffect } from "react";
 
 export default function TrainerDashboard() {
-  const { user, loading, isAuthenticated, logout } = useAuth();
-  const [location] = useLocation();
+  const [trainer, setTrainer] = useState<any>(null);
+  
+  useEffect(() => {
+    const session = localStorage.getItem('trainerSession');
+    if (session) {
+      setTrainer(JSON.parse(session));
+    }
+  }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <p className="text-muted-foreground">Načítavam...</p>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
+  if (!trainer) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle>Prístup iba pre trénerov</CardTitle>
-            <CardDescription>Pre prístup do trénerské sekcie sa musíte prihlásiť</CardDescription>
+            <CardDescription>Pre prístup do trénerskej sekcie sa musíte prihlásiť</CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full">
-              <a href={getLoginUrl()}>Prihlásiť sa</a>
+              <Link href="/trainer-login">
+                <a>Prihlásiť sa</a>
+              </Link>
             </Button>
           </CardContent>
         </Card>
@@ -99,9 +98,20 @@ export default function TrainerDashboard() {
                   </a>
                 </Link>
               </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/trainer/change-password">
+                  <a>
+                    <Key className="h-4 w-4 mr-2" />
+                    Zmena hesla
+                  </a>
+                </Link>
+              </Button>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground hidden sm:inline">{user?.name}</span>
-                <Button variant="outline" size="sm" onClick={() => logout()}>
+                <span className="text-sm text-muted-foreground hidden sm:inline">{trainer?.fullName}</span>
+                <Button variant="outline" size="sm" onClick={() => {
+                  localStorage.removeItem('trainerSession');
+                  window.location.href = '/trainer-login';
+                }}>
                   <LogOut className="h-4 w-4 mr-2" />
                   Odhlásiť
                 </Button>
@@ -115,7 +125,7 @@ export default function TrainerDashboard() {
       <main className="container py-12">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold mb-2 text-foreground">Vitajte, {user?.name}!</h2>
+            <h2 className="text-3xl font-bold mb-2 text-foreground">Vitajte, {trainer?.fullName}!</h2>
             <p className="text-muted-foreground">Vyberte sekciu, ktorú chcete spravovať</p>
           </div>
 
