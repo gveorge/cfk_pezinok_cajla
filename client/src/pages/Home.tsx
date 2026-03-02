@@ -24,14 +24,14 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
     {
       name: "Milan Dugovič",
       role: "Hlavný tréner",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=milan",
-      description: "UEFA Pro licencia, 15 rokov skúseností"
+      image: "https://scontent.fbts6-1.fna.fbcdn.net/v/t1.6435-9/138327099_103586155042469_1963538079886731481_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=duRnDCa3ZjIQ7kNvwEQl2m2&_nc_oc=AdkBBAcBpMRWz29aDoxOnKFc7PCPBZ907Mg3iupTA5v6iNLpt9wOf-rKvuj1Ulitq6Q&_nc_zt=23&_nc_ht=scontent.fbts6-1.fna&_nc_gid=QClAScWMm7Yi_7IQD8gIqQ&_nc_ss=8&oh=00_Afy88k6x8JlaOgDIin1-PFWK-O7u_HRyQa91xqPTQXk-0g&oe=69CCAD2B",
+      description: "UEFA C licencia, 28 rokov skúseností ako hráč, 3 roky skúseností ako tréner"
     },
     {
-      name: "Ján Horváth",
+      name: "Juraj Šiandor",
       role: "Asistent trénera",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=jan",
-      description: "UEFA B licencia, špecialista na kondíciu"
+      image: "https://scontent.fbts6-1.fna.fbcdn.net/v/t39.30808-6/273765902_5448851835129748_8192039535728335521_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=Uv29QTGSOEIQ7kNvwF1UhMm&_nc_oc=AdmgpazFyIae9cgNoohBPdFgLD8tIsJGoz54vhbq11z4w6tnpP-Fq1GIPqdN7SLOP2M&_nc_zt=23&_nc_ht=scontent.fbts6-1.fna&_nc_gid=IF0cBLzY2Uf-iLc0kFyqJA&_nc_ss=8&oh=00_AfwWrH6iWq5dTB1iWIkUBzGbo6_1tCMk-vfIFI2qBa7Zmg&oe=69AB1932",
+      description: "UEFA C licencia, odborník na kondíciu, 18 rokov skúseností ako hráč, 3 roky skúseností ako tréner."
     }
   ],
   U15: [
