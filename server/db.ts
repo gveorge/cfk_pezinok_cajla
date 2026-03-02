@@ -429,12 +429,12 @@ export async function initializeTrainers() {
   ];
   
   const initialPassword = "Cajla123";
-  const hashedPassword = await bcrypt.hash(initialPassword, 10);
   
   for (const trainer of trainerData) {
     const existing = await db.select().from(trainers).where(eq(trainers.username, trainer.username)).limit(1);
     
     if (existing.length === 0) {
+      const hashedPassword = await bcrypt.hash(initialPassword, 10);
       await db.insert(trainers).values({
         username: trainer.username,
         fullName: trainer.fullName,

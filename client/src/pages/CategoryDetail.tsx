@@ -1,7 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getLoginUrl } from "@/const";
 import { ArrowLeft, Clock, MapPin, User, LogOut, Mail, Phone, ExternalLink } from "lucide-react";
 import { Link, useRoute } from "wouter";
 
@@ -244,7 +243,7 @@ export default function CategoryDetail() {
                 </div>
               ) : (
                 <Button size="sm" asChild>
-                  <a href={getLoginUrl()}>Prihlásiť</a>
+                  <Link href="/trainer-login"><a>Prihlásiť</a></Link>
                 </Button>
               )}
             </div>

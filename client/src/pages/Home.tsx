@@ -1,7 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getLoginUrl } from "@/const";
 import { LogOut, User, Users, Menu, X } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
@@ -189,7 +188,7 @@ export default function Home() {
                 </div>
               ) : (
                 <Button size="sm" asChild>
-                  <a href={getLoginUrl()}>Prihlásiť</a>
+                  <Link href="/trainer-login"><a>Prihlásiť</a></Link>
                 </Button>
               )}
             </div>

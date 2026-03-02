@@ -1,7 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getLoginUrl } from "@/const";
 import { Download, FileText, LogOut, User, ArrowLeft, Heart } from "lucide-react";
 import { Link } from "wouter";
 
@@ -58,7 +57,7 @@ export default function TaxDonation() {
                 </div>
               ) : (
                 <Button size="sm" asChild>
-                  <a href={getLoginUrl()}>Prihlásiť</a>
+                  <Link href="/trainer-login"><a>Prihlásiť</a></Link>
                 </Button>
               )}
             </div>

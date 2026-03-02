@@ -2,7 +2,6 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { ArrowLeft, LogOut, User } from "lucide-react";
 import { useState } from "react";
@@ -92,7 +91,7 @@ export default function Gallery() {
                 </div>
               ) : (
                 <Button size="sm" asChild>
-                  <a href={getLoginUrl()}>Prihlásiť</a>
+                  <Link href="/trainer-login"><a>Prihlásiť</a></Link>
                 </Button>
               )}
             </div>
