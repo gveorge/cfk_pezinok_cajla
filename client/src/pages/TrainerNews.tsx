@@ -1,4 +1,4 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+import { useTrainerAuth } from "@/_core/hooks/useTrainerAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -13,7 +13,7 @@ import { Link } from "wouter";
 import { toast } from "sonner";
 
 export default function TrainerNews() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useTrainerAuth();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingNews, setEditingNews] = useState<any>(null);
 

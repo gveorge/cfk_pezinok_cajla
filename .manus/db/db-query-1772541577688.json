@@ -1,0 +1,34 @@
+{
+  "query": "SELECT id, username, full_name, password_hash FROM trainers;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user K5TyGhqGyn1SBZs.root --database MVgeQBNzZZeKHRW7uLDaQG --execute SELECT id, username, full_name, password_hash FROM trainers;",
+  "rows": [
+    {
+      "id": "1",
+      "username": "Siandorj",
+      "full_name": "Šiandor Ján",
+      "password_hash": "$2b$10$elsM8xu3QEXPSPZmcRVGU.ZqClvqUylUbqUveFzpnZ7vUXQcSquwC"
+    },
+    {
+      "id": "2",
+      "username": "Cajkovicm",
+      "full_name": "Čajkovič Milan",
+      "password_hash": "$2b$10$D4cOjc2N1Dp6w0mjS8IYJOfkt34/as0CF7kdavbwzEEz/wjLKYbRu"
+    },
+    {
+      "id": "3",
+      "username": "Hupkas",
+      "full_name": "Hupka Šimon",
+      "password_hash": "$2b$10$9StIqYILd.zGuTg4pYhtyuVjiHXIxxH43Ykb1lkiILzUFb/S99FLu"
+    },
+    {
+      "id": "4",
+      "username": "Jedinakp",
+      "full_name": "Jedináková Petra",
+      "password_hash": "$2b$10$D4cOjc2N1Dp6w0mjS8IYJOfkt34/as0CF7kdavbwzEEz/wjLKYbRu"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tusername\tfull_name\tpassword_hash\n1\tSiandorj\tŠiandor Ján\t$2b$10$elsM8xu3QEXPSPZmcRVGU.ZqClvqUylUbqUveFzpnZ7vUXQcSquwC\n2\tCajkovicm\tČajkovič Milan\t$2b$10$D4cOjc2N1Dp6w0mjS8IYJOfkt34/as0CF7kdavbwzEEz/wjLKYbRu\n3\tHupkas\tHupka Šimon\t$2b$10$9StIqYILd.zGuTg4pYhtyuVjiHXIxxH43Ykb1lkiILzUFb/S99FLu\n4\tJedinakp\tJedináková Petra\t$2b$10$D4cOjc2N1Dp6w0mjS8IYJOfkt34/as0CF7kdavbwzEEz/wjLKYbRu\n",
+  "stderr": "",
+  "execution_time_ms": 50
+}

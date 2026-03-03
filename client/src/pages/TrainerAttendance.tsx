@@ -1,4 +1,4 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+import { useTrainerAuth } from "@/_core/hooks/useTrainerAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -33,7 +33,7 @@ const months = [
 ];
 
 export default function TrainerAttendance() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useTrainerAuth();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedMonth, setSelectedMonth] = useState<string>("all");
   const currentYear = new Date().getFullYear();
