@@ -84,17 +84,36 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
   ]
 };
 
-// Mock data for A team players
+// Mock data for A team players - from SPORTNET
 const aTeamPlayers = [
-  { number: 1, firstName: "Matej", lastName: "NOVÁK", position: "Brankár", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player1" },
-  { number: 5, firstName: "Peter", lastName: "KOVÁČ", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player2" },
-  { number: 7, firstName: "Martin", lastName: "HORVÁTH", position: "Stredný záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player3" },
-  { number: 9, firstName: "Tomáš", lastName: "VARGA", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player4" },
-  { number: 10, firstName: "Ján", lastName: "BALOG", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player5" },
-  { number: 11, firstName: "Michal", lastName: "TAKÁČ", position: "Krídelník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player6" },
-  { number: 3, firstName: "Róbert", lastName: "MOLNÁR", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player7" },
-  { number: 8, firstName: "Filip", lastName: "ŠIMON", position: "Stredný záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player8" },
-  { number: 4, firstName: "Lukáš", lastName: "URBAN", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=player9" },
+  { firstName: "Martin", lastName: "Radoský", position: "Brankár", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=radosky" },
+  { firstName: "Ľuboš", lastName: "Hanúsek", position: "Brankár", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=hanusek" },
+  { firstName: "Peter", lastName: "Foltanovic", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=foltanovic" },
+  { firstName: "Andrej", lastName: "Dubovský", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=dubovsky" },
+  { firstName: "Andrej", lastName: "Ščepán", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=stepan" },
+  { firstName: "Jozef", lastName: "Hlavina", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=hlavina" },
+  { firstName: "Erik", lastName: "Nitray", position: "Obranca", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=nitray" },
+  { firstName: "Filip", lastName: "Kujovič", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=kujovic" },
+  { firstName: "Erik", lastName: "Hlavina", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=hlavina2" },
+  { firstName: "Martin", lastName: "Riman", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=riman" },
+  { firstName: "Miroslav", lastName: "Púčik", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=pucik" },
+  { firstName: "Michal", lastName: "Guštafík", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=gustafik" },
+  { firstName: "Juraj", lastName: "Šiandor", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=siandor" },
+  { firstName: "Patrik", lastName: "Moravčík", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=moravcik" },
+  { firstName: "Andrej", lastName: "Heriban", position: "Záložník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=heriban" },
+  { firstName: "Juraj", lastName: "Porubský", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=porusky" },
+  { firstName: "Stanislav", lastName: "Vanek", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=vanek" },
+  { firstName: "Tomáš", lastName: "Minarovič", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=minarovic" },
+  { firstName: "Branislav Gabriel", lastName: "Stančik", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=stancik" },
+  { firstName: "Martin", lastName: "Dvorský", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=dvorsky" },
+  { firstName: "Dominik", lastName: "Bilský", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=bilsky" },
+  { firstName: "Marek", lastName: "Kabát", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=kabat" },
+  { firstName: "Erik", lastName: "Turinič", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=turinic" },
+  { firstName: "František", lastName: "Klačan", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=klacan" },
+  { firstName: "Milan", lastName: "Dugovič", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=dugovic" },
+  { firstName: "František", lastName: "Srnák", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=srnak" },
+  { firstName: "Peter", lastName: "Huska", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=huska" },
+  { firstName: "Marek", lastName: "Grnáč", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=grnac" },
 ];
 
 // Training times data
@@ -358,9 +377,6 @@ export default function Home() {
                   {aTeamPlayers.map((player, idx) => (
                     <Card key={idx} className="bg-white hover:shadow-2xl transition-all group overflow-hidden">
                       <CardContent className="p-0 relative">
-                        <div className="absolute top-4 left-4 text-8xl font-bold text-gray-100 z-0">
-                          {player.number}
-                        </div>
                         <div className="relative z-10 p-6">
                           <div className="flex justify-center mb-4">
                             <img
