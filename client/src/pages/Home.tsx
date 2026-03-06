@@ -60,7 +60,7 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
   ],
   U10: [
     {
-      name: "Róbert Takáč",
+      name: "Samuel Hupka",
       role: "Tréner",
       image: "https://api.dicebear.com/7.x/avataaars/svg?seed=robert",
       description: "Trénerská licencia, 5 rokov praxe"
