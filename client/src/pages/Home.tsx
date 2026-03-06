@@ -52,7 +52,7 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
   ],
   U11: [
     {
-      name: "Michal Balog",
+      name: "Matej Čajkovič",
       role: "Tréner",
       image: "https://api.dicebear.com/7.x/avataaars/svg?seed=michal",
       description: "UEFA C licencia, špecialista na techniku"
