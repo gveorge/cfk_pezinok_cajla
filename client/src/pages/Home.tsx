@@ -36,7 +36,7 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
   ],
   U15: [
     {
-      name: "Martin Kováč",
+      name: "Rastislav Špoták",
       role: "Tréner",
       image: "https://api.dicebear.com/7.x/avataaars/svg?seed=martin",
       description: "UEFA B licencia, práca s mládežou"
@@ -68,7 +68,7 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
   ],
   U9: [
     {
-      name: "Lukáš Molnár",
+      name: "Peter Jedinák",
       role: "Tréner",
       image: "https://api.dicebear.com/7.x/avataaars/svg?seed=lukas",
       description: "Trénerská licencia, práca s najmenšími"
