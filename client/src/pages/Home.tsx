@@ -109,11 +109,7 @@ const aTeamPlayers = [
   { firstName: "Dominik", lastName: "Bilský", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=bilsky" },
   { firstName: "Marek", lastName: "Kabát", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=kabat" },
   { firstName: "Erik", lastName: "Turinič", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=turinic" },
-  { firstName: "František", lastName: "Klačan", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=klacan" },
-  { firstName: "Milan", lastName: "Dugovič", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=dugovic" },
-  { firstName: "František", lastName: "Srnák", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=srnak" },
-  { firstName: "Peter", lastName: "Huska", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=huska" },
-  { firstName: "Marek", lastName: "Grnáč", position: "Útočník", image: "https://api.dicebear.com/7.x/avataaars/svg?seed=grnac" },
+
 ];
 
 // Training times data
