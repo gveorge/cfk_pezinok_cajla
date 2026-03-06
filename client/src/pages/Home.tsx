@@ -44,7 +44,7 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
   ],
   U13: [
     {
-      name: "Tomáš Varga",
+      name: "Juraj Šiandor",
       role: "Tréner",
       image: "https://api.dicebear.com/7.x/avataaars/svg?seed=tomas",
       description: "UEFA C licencia, 8 rokov s mládežou"
