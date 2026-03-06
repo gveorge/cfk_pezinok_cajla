@@ -76,7 +76,7 @@ const trainersData: Record<Category, Array<{ name: string; role: string; image: 
   ],
   U8: [
     {
-      name: "Filip Šimon",
+      name: "Martin Hupka",
       role: "Tréner",
       image: "https://api.dicebear.com/7.x/avataaars/svg?seed=filip",
       description: "Trénerská licencia, špecialista na U8"
