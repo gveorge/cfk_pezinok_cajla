@@ -104,7 +104,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg">
-                  +421 XXX XXX XXX
+                  0904250699
                 </p>
               </CardContent>
             </Card>
@@ -118,7 +118,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg">
-                  info@cfkpezinok.sk
+                  valent@dorken.sk
                 </p>
               </CardContent>
             </Card>
@@ -164,7 +164,7 @@ export default function Contact() {
                     href="https://youtube.com/@cfkpezinokcajla"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-white hover:bg-red-50 transition-colors group"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-white hover:bg-red-50 transition-colors group" style={{opacity: '0'}}
                   >
                     <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Youtube className="h-5 w-5 text-white" />

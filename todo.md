@@ -121,3 +121,5 @@
 - [x] Fixed React hooks ordering issue in TrainerGallery (moved all hooks before early return)
 - [x] All trainer dashboard tiles now work without login redirects
 - [x] All 18 tests passing
+- [x] Updated contact information: phone (0904250699), email (valent@dorken.sk)
+- [x] Hidden YouTube social media link (opacity: 0)
