@@ -1,3 +1,4 @@
+import { useTrainerAuth } from "@/_core/hooks/useTrainerAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -5,7 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { trpc } from "@/lib/trpc";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { toast } from "sonner";
 
 const months = [
@@ -27,10 +29,14 @@ const currentYear = new Date().getFullYear();
 const currentMonth = new Date().getMonth() + 1;
 
 export default function TrainerMembershipFees() {
+  // Call all hooks FIRST, before any conditions
+  const { isAuthenticated, loading } = useTrainerAuth({ redirectOnUnauthenticated: true });
+  const [, setLocation] = useLocation();
   const [selectedYear, setSelectedYear] = useState<number>(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<number>(currentMonth);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
+  // Call all tRPC queries FIRST, before any conditions
   const { data: players = [], isLoading: loadingPlayers } = trpc.players.list.useQuery(
     selectedCategory === "all" ? {} : { category: selectedCategory as any }
   );
@@ -46,6 +52,18 @@ export default function TrainerMembershipFees() {
       toast.error(`Chyba: ${error.message}`);
     },
   });
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      setLocation('/trainer-login');
+    }
+  }, [loading, isAuthenticated, setLocation]);
+
+  // Early return after all hooks are called
+  if (loading || !isAuthenticated) {
+    return null;
+  }
 
   const handlePaymentToggle = (playerId: number, paid: boolean) => {
     setPaymentMutation.mutate({

@@ -110,6 +110,14 @@
 - [x] Create password change procedure
 - [x] Build custom trainer login page (replace OAuth)
 - [x] Add trainer session management
-- [ ] Create change password page for trainers
+- [x] Create change password page for trainers
 - [x] Test trainer authentication flow
 - [x] Add 4 initial trainers: Siandorj, Cajkovicm, Hupkas, Jedinakp with password Cajla123
+
+## Recent Fixes
+- [x] Fixed React hooks ordering issue in TrainerMembershipFees (moved all hooks before early return)
+- [x] Fixed React hooks ordering issue in TrainerChangePassword (moved all hooks before early return)
+- [x] Fixed React hooks ordering issue in TrainerNews (moved all hooks before early return)
+- [x] Fixed React hooks ordering issue in TrainerGallery (moved all hooks before early return)
+- [x] All trainer dashboard tiles now work without login redirects
+- [x] All 18 tests passing

@@ -22,6 +22,7 @@ const categories = [
 ];
 
 export default function TrainerGallery() {
+  // Call all hooks FIRST, before any conditions
   const { isAuthenticated } = useTrainerAuth();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -52,6 +53,11 @@ export default function TrainerGallery() {
     },
   });
 
+  // Early return after all hooks are called
+  if (!isAuthenticated) {
+    return null;
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -69,10 +75,6 @@ export default function TrainerGallery() {
 
     createMutation.mutate(data);
   };
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   return (
     <div className="min-h-screen bg-background py-8">

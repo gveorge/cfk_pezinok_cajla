@@ -4,8 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { trpc } from "@/lib/trpc";
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { Link } from "wouter";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
 
 const categories = [
   { value: "all", label: "Všetky kategórie" },
@@ -32,11 +32,21 @@ const months = [
   { value: "11", label: "December" },
 ];
 
+
+
 export default function TrainerAttendance() {
-  const { isAuthenticated } = useTrainerAuth();
+  const { isAuthenticated, loading } = useTrainerAuth({ redirectOnUnauthenticated: true });
+  const [, setLocation] = useLocation();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedMonth, setSelectedMonth] = useState<string>("all");
   const currentYear = new Date().getFullYear();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      setLocation('/trainer-login');
+    }
+  }, [loading, isAuthenticated, setLocation]);
 
   const { data: players = [], isLoading: playersLoading } = trpc.players.list.useQuery(
     selectedCategory === "all" ? {} : { category: selectedCategory as any }
@@ -56,7 +66,7 @@ export default function TrainerAttendance() {
     };
   };
 
-  if (!isAuthenticated) {
+  if (loading || !isAuthenticated) {
     return null;
   }
 

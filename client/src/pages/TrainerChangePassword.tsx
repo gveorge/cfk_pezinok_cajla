@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTrainerAuth } from "@/_core/hooks/useTrainerAuth";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,8 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 export default function TrainerChangePassword() {
+  // Call all hooks FIRST, before any conditions
+  const { isAuthenticated, loading, user: trainer } = useTrainerAuth({ redirectOnUnauthenticated: true });
   const [, setLocation] = useLocation();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -15,18 +18,21 @@ export default function TrainerChangePassword() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [trainer, setTrainer] = useState<any>(null);
 
-  useEffect(() => {
-    const session = localStorage.getItem('trainerSession');
-    if (!session) {
-      setLocation('/trainer-login');
-      return;
-    }
-    setTrainer(JSON.parse(session));
-  }, []);
-
+  // Call mutation FIRST, before any conditions
   const changePasswordMutation = trpc.trainer.changePassword.useMutation();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      setLocation('/trainer-login');
+    }
+  }, [loading, isAuthenticated, setLocation]);
+
+  // Early return after all hooks are called
+  if (loading || !isAuthenticated) {
+    return null;
+  }
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
