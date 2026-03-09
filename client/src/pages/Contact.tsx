@@ -245,7 +245,7 @@ export default function Contact() {
               <h4 className="font-semibold mb-3 text-lg">Kontakt</h4>
               <ul className="space-y-2 text-sm text-gray-300">
                 <li>Pezinok, Slovensko</li>
-                <li>+421 XXX XXX XXX</li>
+                <li>0904250699</li>
                 <li>info@cfkpezinok.sk</li>
               </ul>
             </div>
