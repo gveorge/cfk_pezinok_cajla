@@ -123,3 +123,5 @@
 - [x] All 18 tests passing
 - [x] Updated contact information: phone (0904250699), email (valent@dorken.sk)
 - [x] Hidden YouTube social media link (opacity: 0)
+- [x] Fixed nested anchor tags in TrainerDashboard.tsx (removed <a> tags inside <Link> components)
+- [x] All trainer dashboard tiles now fully functional without redirect issues
